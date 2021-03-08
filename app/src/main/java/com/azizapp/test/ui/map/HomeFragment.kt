@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.azizapp.test.CustomInfoWindowAdapter
@@ -44,7 +47,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     ): View? {
 
         val i = inflater.inflate(R.layout.fragment_home, container, false)
-
         // Inflate the layout for this fragment
         bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet)
 
@@ -106,12 +108,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         googleMap.setOnMarkerClickListener { marker ->
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            pb_image_bottom_sheet.isVisible = true
             tvTitle.text = marker.title
             val keteranganFoto: List<String> = marker.snippet.split("|")
-            tvSubtitle.text = keteranganFoto[0]
+            tvSubtitle.text = "Keterangan Drainase: ${keteranganFoto[0]}"
             Glide.with(this)
                 .load("https://gis-drainase.pocari.id/storage/app/public/images/${keteranganFoto[1]}")
                 .into(gambar)
+            pb_image_bottom_sheet.isGone = true
             true
         }
     }
