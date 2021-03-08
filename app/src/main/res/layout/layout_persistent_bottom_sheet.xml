@@ -19,19 +19,31 @@
         android:text="@string/tv_title_bottomsheet"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_24"
-        app:layout_constraintBottom_toTopOf="@id/gambar"
+        app:layout_constraintBottom_toTopOf="@id/rv_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/gambar"
+    <RelativeLayout
+        android:id="@+id/rv_image"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_16"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/tvSubtitle"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+        <ProgressBar
+            android:id="@+id/pb_image_bottom_sheet"
+            android:layout_width="@dimen/dimen_60"
+            android:layout_height="@dimen/dimen_60"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/gambar"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:scaleType="centerCrop" />
+    </RelativeLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvSubtitle"
@@ -44,6 +56,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gambar" />
+        app:layout_constraintTop_toBottomOf="@+id/rv_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

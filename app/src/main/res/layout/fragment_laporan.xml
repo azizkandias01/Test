@@ -31,30 +31,29 @@
             android:textColor="@color/textPrimary"
             android:textSize="24sp" />
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:background="@drawable/shape_rounded_top_white"
-            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@id/scrollView">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
+            <ScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dimen_16"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/scrollView">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_16"
-                    tools:ignore="MissingConstraints"
-                    android:orientation="horizontal" />
+                    android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/editTextNamaJalan"
@@ -62,9 +61,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_16"
                     android:layout_marginTop="@dimen/dimen_32"
+                    android:clickable="true"
                     android:gravity="start"
                     android:hint="@string/nama_jalan"
-                    android:clickable="true"
                     android:inputType="textMultiLine"
                     android:overScrollMode="always"
                     android:padding="10dp"
@@ -89,6 +88,7 @@
                     android:inputType="textMultiLine"
                     android:overScrollMode="always"
                     android:padding="10dp"
+                    android:enabled="false"
                     android:scrollbarAlwaysDrawVerticalTrack="true"
                     android:scrollbarStyle="insideInset"
                     android:scrollbars="vertical"
@@ -204,17 +204,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/foto"
                     tools:ignore="MissingConstraints" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_32"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buttonLapor" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </ScrollView>
-
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </layout>

@@ -19,7 +19,7 @@ class ViewPagerAdapter(private var details: List<String>,
         init {
             itemImage.setOnClickListener{
                 val position = adapterPosition
-                Toast.makeText(itemView.context, "You clicked on item #${position + 1}", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(itemView.context, "You clicked on item #${position + 1}", Toast.LENGTH_SHORT).show()
             }
         }
     }
