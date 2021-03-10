@@ -1,15 +1,20 @@
 package com.azizapp.test.ui.laporan
 
 import android.app.Activity.RESULT_OK
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.system.Os.accept
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -22,6 +27,7 @@ import com.azizapp.test.model.DataPengaduanMasyarakat
 import com.azizapp.test.utill.Session
 import com.azizapp.test.utill.snackbar
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
@@ -32,7 +38,6 @@ import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class LaporanFragment @Inject constructor(private val typeUser: String) : Fragment() {
 
@@ -41,15 +46,16 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
 
     var imageUri: Uri? = null
     var sImage: String? = null
+    var sudah: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        //openAlertDialog()
+        sudah = pilihLaporan()
 
-        pilihLaporan()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_laporan, container, false)
-        //val inflater = inflater.inflate(R.layout.fragment_laporan, container, false)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModelLaporan = laporanViewModel
@@ -84,6 +90,16 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
         return binding.root
     }
 
+    private fun openDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.pilih_jenis_laporan))
+            .setMessage(resources.getString(R.string.dialog_content))
+            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+                dialog.dismiss()
+                pilihLaporan()
+            }
+            .show()
+    }
 
     private fun actionFailed() {
         Snackbar.make(binding.root, "Action Failed", Snackbar.LENGTH_SHORT).show()
@@ -99,7 +115,6 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
             val lat = data.getDoubleExtra("LAT", 0.0)
             val long = data.getDoubleExtra("LONG", 0.0)
@@ -115,10 +130,8 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
 
             val bytes = byteArrayOutputStream.toByteArray()
             sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
-
         }
     }
-
 
     fun pilihLaporan(): String {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
@@ -146,6 +159,12 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             dialog.dismiss()
             tv_laporkan.text = "Laporkan $jenis"
         }
+
+        dialog.setOnDismissListener {
+            if (jenis == "") {
+                openDialog()
+            }
+        }
         return jenis
     }
 
@@ -154,19 +173,6 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             this.view?.snackbar("Select an Image First")
             return
         }
-
-        // var base64 = "" //Your encoded string
-
-        // base64 = "data:image/" + getMimeType(imageUri!!) + ";base64," + base64
-//        val parcelFileDescriptor =
-//            requireActivity().contentResolver?.openFileDescriptor(imageUri!!, "r", null) ?: return
-//        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
-//        val file =
-//            File(context?.cacheDir, requireActivity().contentResolver.getFileName(imageUri!!))
-//        val outputStream = FileOutputStream(file)
-//        inputStream.copyTo(outputStream)
-
-//        val body = UploadRequestBody(file, "image")
 
         val bearer = "Bearer " + Session.bearer
 
@@ -185,15 +191,6 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             bearer,
             "application/json",
             masyarakat
-//            editTextNamaJalan.text.toString()
-//                .toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-//            //MultipartBody.Part.createFormData("foto", file.name, body),
-//            base64.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-//            tv_laporkan.text.toString().substring(15)
-//                .toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-//            editTextDeskripsi.text.toString()
-//                .toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-//            geometry.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         ).enqueue(object : Callback<DataPengaduanMasyarakat> {
             override fun onResponse(
@@ -230,15 +227,6 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
         MyAPI().pengaduanMasyarakatAnonim(
             "application/json",
             masyarakat
-//            editTextNamaJalan.text.toString()
-//                .toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-//            //MultipartBody.Part.createFormData("foto", file.name, body),
-//            base64.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-//            tv_laporkan.text.toString().substring(15)
-//                .toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-//            editTextDeskripsi.text.toString()
-//                .toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-//            geometry.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         ).enqueue(object : Callback<DataPengaduanMasyarakat> {
             override fun onResponse(
@@ -256,8 +244,6 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
 
         })
     }
-
-
 }
 
 

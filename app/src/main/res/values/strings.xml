@@ -47,4 +47,7 @@
     <string name="nama_jalan">Nama Jalan</string>
     <string name="koordinat">Koordinat</string>
     <string name="deskripsi">Deskripsi</string>
+    <string name="pilih_jenis_laporan">Pilih Jenis Laporan</string>
+    <string name="dialog_content">Pilih jenis laporan terlebih dahulu</string>
+    <string name="ok">OK</string>
 </resources>
