@@ -13,9 +13,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -27,7 +25,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
-    var markerList: ArrayList<Marker>? = null
+    private var markerList: ArrayList<Marker>? = null
+    var markerListTersumbat: ArrayList<Marker>? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -36,6 +35,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         mapView2.getMapAsync(this)
         HomeViewModel.onLoad()
+       HomeViewModel.titikTersumbat()
     }
 
     override fun onCreateView(
@@ -88,6 +88,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         .snippet("${titik.keterangan}|${titik.foto}")
                 )
                 markerList?.add(mark)
+            }
+            HomeViewModel.listTitikTersumbat.forEach { titik ->
+                val mark = googleMap.addMarker(
+                    MarkerOptions()
+                        .position(geoToLatLong(titik.geometry))
+                        .title(titik.namaJalan)
+                        .snippet("${titik.keterangan}|${titik.foto}")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                )
+                markerListTersumbat?.add(mark)
             }
         }
 

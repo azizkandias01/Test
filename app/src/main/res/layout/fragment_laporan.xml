@@ -36,13 +36,13 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/header"
-                android:layout_width="420dp"
-                android:layout_height="97dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@drawable/yellow_header_shape"
                 app:layout_constraintHeight_percent=".16"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="-9dp" />
+                app:layout_constraintWidth_percent="1"
+                tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/tv_laporkan"

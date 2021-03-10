@@ -94,5 +94,13 @@ class MainRepository @Inject constructor(
             return Resource.Error(response.message())
         }
     }
+    suspend fun getTitikTersumbat(): Resource<TitikTersumbatResponse> {
+        masyarakatService.titikTersumbat().let { response ->
+            if (response.isSuccessful) {
+                response.body()?.let { return Resource.Success(it) }
+            }
+            return Resource.Error(response.message())
+        }
+    }
 
 }

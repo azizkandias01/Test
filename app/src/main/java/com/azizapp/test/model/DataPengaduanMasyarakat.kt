@@ -12,6 +12,8 @@ data class DataPengaduanMasyarakat(
     var tipePengaduan: String?="Banjir",
     @SerializedName("deskripsi_pengaduan")
     var deskripsiPengaduan: String?="",
+    @SerializedName("status_pengaduan")
+    var statusPengaduan: String?="Belum diverifikasi",
     @SerializedName("geometry")
     var geometry: String?
 )

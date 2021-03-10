@@ -52,4 +52,7 @@ interface MasyarakatService {
 
     @GET("api/titik_banjir")
     suspend fun titikBanjir():Response<TitikBanjirResponse>
+
+    @GET("api/titik_tersumbat")
+    suspend fun titikTersumbat():Response<TitikTersumbatResponse>
 }
