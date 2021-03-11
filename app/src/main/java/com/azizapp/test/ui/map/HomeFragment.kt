@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -26,7 +27,7 @@ import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
 @AndroidEntryPoint
 class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<CardView>
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
     private var markerList: ArrayList<Marker>? = null
     var markerListTersumbat: ArrayList<Marker>? = null
@@ -107,15 +108,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f))
 
         googleMap.setOnMarkerClickListener { marker ->
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            pb_image_bottom_sheet.isVisible = true
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             tvTitle.text = marker.title
             val keteranganFoto: List<String> = marker.snippet.split("|")
             tvSubtitle.text = "Keterangan Drainase: ${keteranganFoto[0]}"
             Glide.with(this)
                 .load("https://gis-drainase.pocari.id/storage/app/public/images/${keteranganFoto[1]}")
                 .into(gambar)
-            pb_image_bottom_sheet.isGone = true
             true
         }
     }
