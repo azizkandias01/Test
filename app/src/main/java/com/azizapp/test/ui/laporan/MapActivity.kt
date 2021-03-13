@@ -53,11 +53,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         map.getMapAsync(this)
 
-        val btnGetCurrentLocation: FloatingActionButton = findViewById(R.id.fab_get_current_location)
-        btnGetCurrentLocation.setOnClickListener {
-            fetchLocation()
-        }
-
         mapActivityViewModel.action.observe(this, Observer { action ->
             when (action) {
                 MapActivityViewModel.ACTION_SUCCESS -> actionSuccess()

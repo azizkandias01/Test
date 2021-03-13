@@ -44,22 +44,6 @@
 
         </com.google.android.gms.maps.MapView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_get_current_location"
-            android:layout_width="@dimen/dimen_60"
-            android:layout_height="@dimen/dimen_60"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_marginEnd="@dimen/dimen_32"
-            android:layout_marginBottom="@dimen/dimen_32"
-            app:layout_constraintBottom_toTopOf="@+id/btn_simpan"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:scaleType="center"
-            android:foreground="@drawable/ic_my_location"
-            android:foregroundGravity="center"
-            app:backgroundTint="@color/white"
-            app:borderWidth="0dp"/>
-
         <Button
             android:id="@+id/btn_simpan"
             android:layout_width="match_parent"
