@@ -112,6 +112,8 @@ dependencies {
 
     //lottie animation
     implementation 'com.airbnb.android:lottie:3.4.0'
+    //Location
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 }
 allprojects {
     repositories {

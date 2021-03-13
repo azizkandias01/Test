@@ -1,11 +1,16 @@
 package com.azizapp.test.ui.laporan
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,6 +21,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,6 +32,9 @@ import com.azizapp.test.databinding.FragmentLaporanBinding
 import com.azizapp.test.model.DataPengaduanMasyarakat
 import com.azizapp.test.utill.Session
 import com.azizapp.test.utill.snackbar
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -36,11 +45,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LaporanFragment @Inject constructor(private val typeUser: String) : Fragment() {
 
+    var address = "";
+    var city = "";
+    var lat: Double = 0.0
+    var long: Double = 0.0
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var binding: FragmentLaporanBinding
     private val laporanViewModel: LaporanViewModel by viewModels()
 
@@ -87,6 +102,13 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             }
         }
 
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
+
+        binding.getLocation.setOnClickListener() {
+            fetchLocation()
+        }
+
         return binding.root
     }
 
@@ -99,6 +121,42 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 pilihLaporan()
             }
             .show()
+    private fun fetchLocation() {
+        val task = fusedLocationProviderClient.lastLocation
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                101
+            )
+            return
+        }
+        task.addOnSuccessListener {
+            if (it!=null){
+                getAddress(it.latitude,it.longitude)
+                Toast.makeText(requireContext(),"${it.latitude}, ${it.longitude}",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun getAddress(latitude : Double, longitude : Double){
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        val addresses: MutableList<Address>? =
+            geocoder.getFromLocation(latitude, longitude, 1)
+        address = addresses?.get(0)?.getAddressLine(0).toString()
+        city = addresses?.get(0)?.locality.toString()
+        lat = latitude
+        long = longitude
+
+        editTextNamaJalan.setText(address)
+        editTextLokasi.setText("[${lat},${long}]")
     }
 
     private fun actionFailed() {
