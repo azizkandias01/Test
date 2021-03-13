@@ -36,8 +36,6 @@ class MapActivityViewModel : ViewModel() {
             latitude.postValue(lat)
             longitude.postValue(long)
             namaJalan.postValue("$address $city")
-
-
     }
 
     fun btnConfirmClick() {
