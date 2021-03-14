@@ -44,8 +44,8 @@
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_marginTop="@dimen/dimen_16"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,175 +55,156 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/editTextNamaJalan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dimen_16"
-                    android:layout_marginTop="@dimen/dimen_32"
-                    android:clickable="true"
-                    android:gravity="start"
-                    android:hint="@string/nama_jalan"
-                    android:inputType="textMultiLine"
-                    android:overScrollMode="always"
-                    android:padding="10dp"
-                    android:scrollbarAlwaysDrawVerticalTrack="true"
-                    android:scrollbarStyle="insideInset"
-                    android:scrollbars="vertical"
-                    android:text="@={viewModelLaporan.namaJalan}"
-                    android:textColor="@color/textColorSecondary"
-                    android:textColorHint="@color/textColorSecondary"
-                    android:textSize="16sp"
-                    app:layout_constraintTop_toTopOf="@id/constraintLayout"
-                    tools:ignore="MissingConstraints" />
-
-                <EditText
-                    android:id="@+id/editTextLokasi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dimen_16"
-                    android:layout_marginTop="5dp"
-                    android:gravity="start"
-                    android:hint="@string/koordinat"
-                    android:inputType="textMultiLine"
-                    android:overScrollMode="always"
-                    android:padding="10dp"
-                    android:enabled="false"
-                    android:scrollbarAlwaysDrawVerticalTrack="true"
-                    android:scrollbarStyle="insideInset"
-                    android:scrollbars="vertical"
-                    android:text="@={viewModelLaporan.lokasi}"
-                    android:textColor="@color/textColorSecondary"
-                    android:textColorHint="@color/textColorSecondary"
-                    android:textSize="16sp"
-                    app:layout_constraintTop_toBottomOf="@id/editTextNamaJalan" />
-
-
-                <RelativeLayout
-                    android:id="@+id/deskripsi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editTextLokasi"
-                    tools:ignore="MissingConstraints">
-
                     <EditText
-                        android:id="@+id/editTextDeskripsi"
+                        android:id="@+id/editTextNamaJalan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/dimen_16"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/dimen_32"
+                        android:clickable="true"
                         android:gravity="start"
-                        android:hint="@string/deskripsi"
+                        android:hint="@string/nama_jalan"
                         android:inputType="textMultiLine"
-                        android:minLines="6"
                         android:overScrollMode="always"
                         android:padding="10dp"
                         android:scrollbarAlwaysDrawVerticalTrack="true"
                         android:scrollbarStyle="insideInset"
                         android:scrollbars="vertical"
-                        android:text="@={viewModelLaporan.deskripsi}"
+                        android:text="@={viewModelLaporan.namaJalan}"
                         android:textColor="@color/textColorSecondary"
                         android:textColorHint="@color/textColorSecondary"
-                        android:textSize="16sp" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/foto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/deskripsi"
-                    tools:ignore="MissingConstraints">
-
-                    <TextView
-                        android:id="@+id/tvFoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="Foto Lokasi"
-                        android:textColor="@color/textColorSecondary"
-                        tools:ignore="MissingConstraints" />
-
-                    <ImageView
-                        android:id="@+id/editGambar"
-                        android:layout_width="292dp"
-                        android:layout_height="150dp"
-                        android:layout_below="@id/tvFoto"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/grey"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:padding="10dp"
-                        android:scaleType="centerCrop"
-                        android:src="@{viewModelLaporan.img}"
                         android:textSize="16sp"
                         tools:ignore="MissingConstraints" />
 
-                </RelativeLayout>
+                    <EditText
+                        android:id="@+id/editTextLokasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dimen_16"
+                        android:layout_marginTop="5dp"
+                        android:enabled="false"
+                        android:gravity="start"
+                        android:hint="@string/koordinat"
+                        android:inputType="textMultiLine"
+                        android:overScrollMode="always"
+                        android:padding="10dp"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        android:text="@={viewModelLaporan.lokasi}"
+                        android:textColor="@color/textColorSecondary"
+                        android:textColorHint="@color/textColorSecondary"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toBottomOf="@id/editTextNamaJalan" />
 
-                <RelativeLayout
-                    android:id="@+id/loadingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/buttonLapor"
-                    tools:ignore="MissingConstraints">
 
-                    <ProgressBar
-                        android:id="@+id/pb_login_loading"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:visibility="@{viewModelLaporan.loadingEnable ? View.VISIBLE : View.GONE}"
+                    <RelativeLayout
+                        android:id="@+id/deskripsi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        tools:ignore="NotSibling"
-                        tools:visibility="gone" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/editTextLokasi"
+                        tools:ignore="MissingConstraints">
 
-                </RelativeLayout>
+                        <EditText
+                            android:id="@+id/editTextDeskripsi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/dimen_16"
+                            android:layout_marginTop="5dp"
+                            android:gravity="start"
+                            android:hint="@string/deskripsi"
+                            android:inputType="textMultiLine"
+                            android:minLines="6"
+                            android:overScrollMode="always"
+                            android:padding="10dp"
+                            android:scrollbarAlwaysDrawVerticalTrack="true"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbars="vertical"
+                            android:text="@={viewModelLaporan.deskripsi}"
+                            android:textColor="@color/textColorSecondary"
+                            android:textColorHint="@color/textColorSecondary"
+                            android:textSize="16sp" />
 
-                <Button
-                    android:id="@+id/buttonLapor"
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginHorizontal="@dimen/dimen_16"
-                    android:layout_marginTop="@dimen/dimen_16"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="Lapor"
-                    android:textAllCaps="true"
-                    android:textColor="@color/textPrimary"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/foto"
-                    tools:ignore="MissingConstraints" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/foto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/deskripsi"
+                        tools:ignore="MissingConstraints">
+
+                        <TextView
+                            android:id="@+id/tvFoto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="Foto Lokasi"
+                            android:textColor="@color/textColorSecondary"
+                            tools:ignore="MissingConstraints" />
+
+                        <ImageView
+                            android:id="@+id/editGambar"
+                            android:layout_width="292dp"
+                            android:layout_height="150dp"
+                            android:layout_below="@id/tvFoto"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/grey"
+                            android:ems="10"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@{viewModelLaporan.img}"
+                            android:textSize="16sp"
+                            tools:ignore="MissingConstraints" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/loadingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/buttonLapor"
+                        tools:ignore="MissingConstraints">
+
+                        <ProgressBar
+                            android:id="@+id/pb_login_loading"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:visibility="@{viewModelLaporan.loadingEnable ? View.VISIBLE : View.GONE}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:ignore="NotSibling"
+                            tools:visibility="gone" />
+
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/buttonLapor"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_marginHorizontal="@dimen/dimen_16"
+                        android:layout_marginTop="@dimen/dimen_16"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Lapor"
+                        android:textAllCaps="true"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/foto"
+                        tools:ignore="MissingConstraints" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
-                <Button
-                    android:id="@+id/getLocation"
-                    android:layout_width="292dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/shape_rounded_white"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="Get Location"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/buttonLapor"
-                    tools:ignore="MissingConstraints" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 

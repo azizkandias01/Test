@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.azizapp.test.CustomInfoWindowAdapter
@@ -19,15 +16,17 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
 
+
 @AndroidEntryPoint
 class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<CardView>
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
     private var markerList: ArrayList<Marker>? = null
     var markerListTersumbat: ArrayList<Marker>? = null
@@ -49,7 +48,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         val i = inflater.inflate(R.layout.fragment_home, container, false)
         // Inflate the layout for this fragment
-        bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet)
+        bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet).apply { BottomSheetDialog(requireContext(), R.style.BottomSheetDialog) }
 
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {

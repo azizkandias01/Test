@@ -55,20 +55,19 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
     var city = "";
     var lat: Double = 0.0
     var long: Double = 0.0
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+//    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var binding: FragmentLaporanBinding
     private val laporanViewModel: LaporanViewModel by viewModels()
 
     var imageUri: Uri? = null
     var sImage: String? = null
-    var sudah: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         //openAlertDialog()
-        sudah = pilihLaporan()
+        pilihLaporan()
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_laporan, container, false)
         binding.apply {
@@ -102,12 +101,12 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             }
         }
 
-        fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireContext())
+//        fusedLocationProviderClient =
+//            LocationServices.getFusedLocationProviderClient(requireContext())
 
-        binding.getLocation.setOnClickListener() {
-            fetchLocation()
-        }
+//        binding.getLocation.setOnClickListener() {
+//            fetchLocation()
+//        }
 
         return binding.root
     }
@@ -121,43 +120,49 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 pilihLaporan()
             }
             .show()
-    private fun fetchLocation() {
-        val task = fusedLocationProviderClient.lastLocation
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                101
-            )
-            return
-        }
-        task.addOnSuccessListener {
-            if (it!=null){
-                getAddress(it.latitude,it.longitude)
-                Toast.makeText(requireContext(),"${it.latitude}, ${it.longitude}",Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
-    private fun getAddress(latitude : Double, longitude : Double){
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        val addresses: MutableList<Address>? =
-            geocoder.getFromLocation(latitude, longitude, 1)
-        address = addresses?.get(0)?.getAddressLine(0).toString()
-        city = addresses?.get(0)?.locality.toString()
-        lat = latitude
-        long = longitude
-
-        editTextNamaJalan.setText(address)
-        editTextLokasi.setText("[${lat},${long}]")
-    }
+//    private fun fetchLocation() {
+//        val task = fusedLocationProviderClient.lastLocation
+//        if (ActivityCompat.checkSelfPermission(
+//                requireContext(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                requireContext(),
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                requireActivity(),
+//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                101
+//            )
+//            return
+//        }
+//        task.addOnSuccessListener {
+//            if (it != null) {
+//                getAddress(it.latitude, it.longitude)
+//                Toast.makeText(
+//                    requireContext(),
+//                    "${it.latitude}, ${it.longitude}",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        }
+//    }
+//
+//    private fun getAddress(latitude: Double, longitude: Double) {
+//        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+//        val addresses: MutableList<Address>? =
+//            geocoder.getFromLocation(latitude, longitude, 1)
+//        address = addresses?.get(0)?.getAddressLine(0).toString()
+//        city = addresses?.get(0)?.locality.toString()
+//        lat = latitude
+//        long = longitude
+//
+//        editTextNamaJalan.setText(address)
+//        editTextLokasi.setText("[${lat},${long}]")
+//    }
 
     private fun actionFailed() {
         Snackbar.make(binding.root, "Action Failed", Snackbar.LENGTH_SHORT).show()
@@ -259,13 +264,10 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 intent.putExtra("type", "login")
                 startActivity(intent)
             }
-
             override fun onFailure(call: Call<DataPengaduanMasyarakat>, t: Throwable) {
                 requireView().snackbar("gagal ${t.message}")
             }
-
         })
-
     }
 
     private fun uploadImageAnonym() {
@@ -299,7 +301,6 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             override fun onFailure(call: Call<DataPengaduanMasyarakat>, t: Throwable) {
                 requireView().snackbar("gagal ${t.message}")
             }
-
         })
     }
 }
