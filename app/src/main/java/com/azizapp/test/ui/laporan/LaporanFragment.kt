@@ -115,7 +115,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.pilih_jenis_laporan))
             .setMessage(resources.getString(R.string.dialog_content))
-            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+            .setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
                 dialog.dismiss()
                 pilihLaporan()
             }

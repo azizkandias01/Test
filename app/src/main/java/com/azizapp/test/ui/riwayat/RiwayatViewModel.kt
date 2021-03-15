@@ -1,5 +1,6 @@
 package com.azizapp.test.ui.riwayat
 
+import androidx.hilt.lifecycle.R
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.azizapp.test.R
 import com.azizapp.test.databinding.FragmentRiwayatBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_riwayat.*
+import kotlinx.android.synthetic.main.item_list_riwayat.view.*
 
 
 @AndroidEntryPoint
@@ -69,5 +72,4 @@ class RiwayatFragment : Fragment() {
         riwayatAdapter.items = riwayatViewModel.listPengaduan
         riwayatAdapter.notifyDataSetChanged()
     }
-
 }
