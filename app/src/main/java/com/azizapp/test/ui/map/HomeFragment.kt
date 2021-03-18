@@ -21,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
+import java.lang.StringBuilder
 
 
 @AndroidEntryPoint
@@ -110,7 +111,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             tvTitle.text = marker.title
             val keteranganFoto: List<String> = marker.snippet.split("|")
-            tvSubtitle.text = "Keterangan Drainase: ${keteranganFoto[0]}"
+            tvSubtitle.text = StringBuilder("Keterangan Drainase: ${keteranganFoto[0]}")
             Glide.with(this)
                 .load("https://gis-drainase.pocari.id/storage/app/public/images/${keteranganFoto[1]}")
                 .into(gambar)

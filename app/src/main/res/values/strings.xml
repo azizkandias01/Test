@@ -9,13 +9,6 @@
     <string name="login_sample_email">sample@email.com</string>
     <string name="login_password_hint">********</string>
 
-    <string name="nama_user">Deanira Fadrinaldi</string>
-    <string name="noHp_user">082392074446</string>
-    <string name="email_user">deanira18ti@mahasiswa.pcr.ac.id</string>
-    <string name="tempatLahir_user">Deanira Fadrinaldi</string>
-    <string name="tanggalLahir_user">Deanira Fadrinaldi</string>
-    <string name="alamat_user">Deanira Fadrinaldi</string>
-
     <!--bottom sheet-->
     <string name="btn_persistent">Persistent Bottom Sheet</string>
     <string name="btn_modal">Modal Bottom Sheet</string>
@@ -53,4 +46,6 @@
     <string name="default_info_title">default info title</string>
     <string name="default_info_snippet">default info snippet</string>
     <string name="pick_place">Pilih lokasi</string>
+    <string name="titik_tersumbat">Titik Tersumbat</string>
+    <string name="titik_banjir">Titik Banjir</string>
 </resources>
