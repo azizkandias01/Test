@@ -1,16 +1,18 @@
 package com.azizapp.test.ui.riwayat
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.azizapp.test.model.Pengaduan
 import com.azizapp.test.repository.MainRepository
 import com.azizapp.test.utill.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RiwayatViewModel @ViewModelInject constructor(
-    public val repository: MainRepository
+@HiltViewModel
+class RiwayatViewModel @Inject constructor(
+    private val repository: MainRepository
 ) : ViewModel() {
 
     val loadingEnable = MutableLiveData<Boolean>()
@@ -18,7 +20,7 @@ class RiwayatViewModel @ViewModelInject constructor(
     val action = MutableLiveData<String>()
     val actionItemPosition = MutableLiveData<Int>()
 
-    companion object{
+    companion object {
         const val ACTION_RIWAYAT_FETCHED = "RIWAYAT_FETCHED"
         const val ACTION_RIWAYAT_ONCLICK = "RIWAYAT_CLICKED"
     }
@@ -29,28 +31,13 @@ class RiwayatViewModel @ViewModelInject constructor(
             when (val response = bearer?.let { repository.getPengaduanMasyarakat(it) }) {
                 is Resource.Success -> {
                     response.data?.forEach {
-                        val pengaduan = Pengaduan(
-                            deskripsiPengaduan = it.deskripsiPengaduan.toString(),
-                            feedbackMasyarakat = it.feedbackMasyarakat.toString(),
-                            foto = it.foto,
-                            geometry = it.geometry,
-                            id = it.id,
-                            idAdmin = it.idAdmin,
-                            idMasyarakat = it.idMasyarakat,
-                            idPetugas = it.idPetugas.toString(),
-                            laporanPetugas = it.laporanPetugas.toString(),
-                            namaJalan = it.namaJalan.toString(),
-                            statusPengaduan = it.statusPengaduan.toString(),
-                            tipePengaduan = it.tipePengaduan.toString()
-                        )
-
-                        listPengaduan.add(pengaduan)
+                        listPengaduan.add(it)
                     }
-                    action.postValue(RiwayatViewModel.ACTION_RIWAYAT_FETCHED)
+                    action.postValue(ACTION_RIWAYAT_FETCHED)
                 }
                 is Resource.Error -> {
                     loadingEnable.postValue(false)
-                    // action.postValue(LoginViewModel.ACTION_LOGIN_ERROR)
+                    //action.postValue(LoginViewModel.ACTION_LOGIN_ERROR)
                 }
             }
         }

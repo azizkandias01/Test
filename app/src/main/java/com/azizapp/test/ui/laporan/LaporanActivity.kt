@@ -18,8 +18,8 @@ import java.util.*
 
 class LaporanActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    var address = "";
-    var city = "";
+    var address = ""
+    var city = ""
     var lat: Double = 0.0
     var long: Double = 0.0
 

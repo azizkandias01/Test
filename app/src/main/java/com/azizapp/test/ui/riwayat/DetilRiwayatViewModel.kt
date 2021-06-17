@@ -1,23 +1,25 @@
 package com.azizapp.test.ui.riwayat
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.azizapp.test.model.Pengaduan
 import com.azizapp.test.repository.MainRepository
 import com.azizapp.test.utill.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetilRiwayatViewModel@ViewModelInject constructor(
-    public val repository: MainRepository
+@HiltViewModel
+class DetilRiwayatViewModel @Inject constructor(
+    val repository: MainRepository
 ) : ViewModel() {
     val loadingEnable = MutableLiveData<Boolean>()
     val listPengaduan: ArrayList<Pengaduan> = arrayListOf()
     val action = MutableLiveData<String>()
     val actionItemPosition = MutableLiveData<Int>()
 
-    companion object{
+    companion object {
         const val ACTION_RIWAYAT_FETCHED = "RIWAYAT_FETCHED"
         const val ACTION_RIWAYAT_ONCLICK = "RIWAYAT_CLICKED"
     }

@@ -1,11 +1,13 @@
-package com.azizapp.test
+package com.azizapp.test.ui.welcome
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.azizapp.test.R
 import com.azizapp.test.ui.daftar.DaftarActivity
 import com.azizapp.test.ui.login.LoginActivity
+import com.azizapp.test.ui.navigationbar.MainActivityNavGuest
 import kotlinx.android.synthetic.main.splash.*
 import me.relex.circleindicator.CircleIndicator3
 
@@ -14,8 +16,11 @@ class MainActivity : AppCompatActivity() {
     private var descList = mutableListOf<String>()
     private var imagesList = mutableListOf<Int>()
 
-    var desc = arrayOf("Laporkan kerusakan jaringan drainase manapun dengan mudah","Ditangani langsung oleh Pemerintah Kota Pekanbaru")
-    var image = intArrayOf(R.drawable.hprusak, R.drawable.pemerintahlogo)
+    var desc = arrayOf(
+        "Laporkan kerusakan jaringan drainase manapun dengan mudah",
+        "Ditangani langsung oleh Pemerintah Kota Pekanbaru"
+    )
+    var image = intArrayOf(R.raw.smartphone, R.raw.laborer)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

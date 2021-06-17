@@ -13,60 +13,63 @@
 
         <variable
             name="data"
-            type="com.azizapp.test.model.Pengaduan"/>
+            type="com.azizapp.test.model.Pengaduan" />
 
         <variable
             name="position"
-            type="Integer"/>
+            type="Integer" />
 
         <variable
             name="RiwayatFragment"
-            type="com.azizapp.test.ui.riwayat.RiwayatFragment"/>
+            type="com.azizapp.test.ui.riwayat.RiwayatFragment" />
 
 
     </data>
 
-<RelativeLayout
-    android:id="@+id/rl_klik"
-    android:layout_margin="@dimen/dimen_16"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/shape_rounded_orange"
-    android:onClick="@{()->viewModelRiwayat.itemOnClick(position)}"
-    android:elevation="3dp">
-
-    <ImageView
-        android:id="@+id/image_pin"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="6dp"
-        android:rotation="30"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        app:srcCompat="@drawable/ic_pin" />
-
-    <TextView
-        android:layout_margin="6dp"
-        android:id="@+id/tvLokasi"
-        android:layout_toRightOf="@id/image_pin"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rl_klik"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@={data.namaJalan}"
-        android:textColor="@color/white"
-        android:textSize="11dp" />
+        android:layout_margin="@dimen/dimen_16"
+        android:background="@drawable/shape_rounded_orange"
+        android:elevation="3dp"
+        android:onClick="@{()->viewModelRiwayat.itemOnClick(position)}">
 
-    <TextView
-        android:layout_marginHorizontal="6dp"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/tvStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvLokasi"
-        android:layout_marginStart="34dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@={data.statusPengaduan}"
-        android:textColor="@color/white"
-        android:textSize="14dp" />
+        <ImageView
+            android:id="@+id/image_pin"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="6dp"
+            android:rotation="30"
+            app:srcCompat="@drawable/ic_pin" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvLokasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_toRightOf="@id/image_pin"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@={data.namaJalan}"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvLokasi"
+            android:layout_marginHorizontal="6dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/image_pin"
+            android:background="@drawable/shape_rounded_white"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="2dp"
+            android:text="@={data.statusPengaduan}"
+            android:textColor="@color/orange"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
 </layout>

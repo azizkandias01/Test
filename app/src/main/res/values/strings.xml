@@ -40,4 +40,12 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+    <string name="riwayat">Riwayat</string>
+    <string name="tentang_kami">Pengelolaan pengaduan pelayanan publik di kota pekanbaru belum terkelola secara efektif dan terintegrasi, khususnya dalam hal permasalahan drainase. Pembangunan tol yang masif di Kota Pekanbaru dan sekitarnya, telah menimbulkan permasalahan yakni, menyempitnya ruang resapan air, banjir dan ditambah lagi dengan tingginya jumlah penduduk. Permasalahan ini sama seperti kota metropolitan lainnya, bak penyakit menahun yang tak kunjung sembuh. Keberadaan sampah di selokan tersebut turut andil memicu terjadinya banjir, lantaran tidak lancarnya aliran air di selokan. Hanya saja peran sampah sebagai pemicu banjir dapat diredam dengan budaya tertib membuang sampah. Namun, lain cerita dengan persoalan teknis drainase. Kota Pekanbaru memiliki tiga sungai utama sebagai tujuan akhir drainase, tiga sungai itu meliputi: Sungai Siak, Sungai Sail, dan Sungai Kampar. Menurut Iksan, jika drainase menuju ketiga sungai terpetakan, dan terintegrasi dengan baik, persoalan banjir dapat bekurang. Adapun kota Pekanbaru telah memiliki masterplan penanganan banjir yang didalamnya berisi pemetaan 180 titik banjir dengan ratusan masalah. </string>
+    <string name="tentang_kami_2">Untuk itu pemerintah kota pekanbaru bekerja sama dengan Politeknik Caltex Riau membentuk aplikasi berbasis android bernama drainit. drainit adalah aplikasi layanan publik yang dapat digunakan masyarakat kota pekanbaru untuk melaporkan drainase yang tersumbat, drainase yang banjir, dan melihat titik banjir sehingga masyarakat dapat menghindari daerah tersebut. dengan adanya aplikasi ini diharapkan masyarakat kota pekanbaru turut andil dalam menangani permasalahan drainase yang ada di kota Pekanbaru.</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="nama_jalan">Nama Jalan</string>
+    <string name="koordinat">Koordinat</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="daftar_titik_banjir_dan_tersumbat">Daftar Titik Banjir dan Tersumbat</string>
 </resources>

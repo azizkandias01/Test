@@ -17,12 +17,14 @@ class DetilRiwayat : AppCompatActivity() {
     lateinit var binding: ActivityDetilRiwayatBinding
     private val detilRiwayatViewModel: DetilRiwayatViewModel by viewModels()
 
-    companion object{
+    companion object {
         const val DETAIL_EXTRA_PARCEL = "DETAIL_EXTRA_PARCEL"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detil_riwayat)
 
         val item: Pengaduan? = intent.getParcelableExtra(DETAIL_EXTRA_PARCEL)
@@ -31,5 +33,10 @@ class DetilRiwayat : AppCompatActivity() {
             lifecycleOwner = this@DetilRiwayat
             data = item
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }

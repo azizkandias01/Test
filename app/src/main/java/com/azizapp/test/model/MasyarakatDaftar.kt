@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName
 
 data class MasyarakatDaftar(
     @SerializedName("email")
-    var email: String?="",
+    var email: String? = "",
     @SerializedName("password")
-    var password: String?="",
+    var password: String? = "",
     @SerializedName("password_confirmation")
-    var password_confirmation: String?="",
+    var password_confirmation: String? = "",
     @SerializedName("nama")
-    var nama: String?="",
+    var nama: String? = "",
     @SerializedName("no_hp")
-    var noHp: String?="",
+    var noHp: String? = "",
     @SerializedName("foto")
-    var foto: String?="",
+    var foto: String? = "",
     @SerializedName("alamat")
-    var alamat: String?=""
+    var alamat: String? = ""
 )

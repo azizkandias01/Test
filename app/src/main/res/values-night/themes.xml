@@ -21,4 +21,10 @@
         <item name="android:textSize">18dp</item>
         <item name="android:textColor">@color/textPrimary</item>
     </style>
+
+    <style name="Windowactionbar">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="actionBarItemBackground">@color/header</item>
+    </style>
 </resources>

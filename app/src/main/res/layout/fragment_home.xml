@@ -7,51 +7,51 @@
     android:background="@android:color/white"
     tools:context=".ui.map.HomeFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="80dp"
+            android:background="@color/header"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/shapeableImageView"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="@drawable/yellow_header_shape"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/cariDaerah"
-                style="@style/Widget.AppCompat.AutoCompleteTextView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/shape_very_rounded_white"
-                android:drawableStart="@drawable/ic_search"
-                android:drawableTint="@color/primaryVariant"
-                android:drawablePadding="15dp"
-                android:hint="Cari Disini"
-                android:inputType="textEmailAddress"
-                android:padding="10dp"
-                android:textColor="@color/textColorSecondary"
-                android:textColorHint="@color/textColorSecondary"
-                android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent=".07"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent=".92" />
+        <TextView
+            android:id="@+id/tv_login_masuk"
+            style="@style/TextView.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/daftar_titik_banjir_dan_tersumbat"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"
+            app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/shapeableImageView" />
 
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/pb_load_titik"
+            android:layout_width="@dimen/dimen8x"
+            android:layout_height="@dimen/dimen8x"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <include layout="@layout/layout_persistent_bottom_sheet" />

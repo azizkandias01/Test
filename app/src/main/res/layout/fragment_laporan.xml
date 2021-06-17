@@ -16,128 +16,88 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F6F6F6"
+        android:background="@color/header"
         android:orientation="vertical"
         tools:context=".ui.laporan.LaporanFragment">
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_weight="1">
+        <TextView
+            android:id="@+id/tv_laporkan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/dimen_32"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@={viewModelLaporan.tipe_pengaduan}"
+            android:textColor="@color/textPrimary"
+            android:textSize="24sp" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/header"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/yellow_header_shape"
-                app:layout_constraintHeight_percent=".16"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="1"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/tv_laporkan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
-                android:text="@={viewModelLaporan.tipe_pengaduan}"
-                android:textColor="@color/textPrimary"
-                android:textSize="24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/header"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_rounded_top_white"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/header"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintTop_toTopOf="@id/scrollView">
 
-                <RelativeLayout
-                    android:id="@+id/namaJalan"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_16"
+                    tools:ignore="MissingConstraints"
+                    android:orientation="horizontal" />
+
+                <EditText
+                    android:id="@+id/editTextNamaJalan"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="MissingConstraints">
+                    android:layout_marginHorizontal="@dimen/dimen_16"
+                    android:layout_marginTop="@dimen/dimen_32"
+                    android:gravity="start"
+                    android:hint="@string/nama_jalan"
+                    android:clickable="true"
+                    android:inputType="textMultiLine"
+                    android:overScrollMode="always"
+                    android:padding="10dp"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:text="@={viewModelLaporan.namaJalan}"
+                    android:textColor="@color/textColorSecondary"
+                    android:textColorHint="@color/textColorSecondary"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="@id/constraintLayout"
+                    tools:ignore="MissingConstraints" />
 
-                    <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
-                        android:id="@+id/til_nama_jalan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:padding="16dp"
-                        app:borderColor="@color/primaryVariant"
-                        app:borderWidth="2dp"
-                        app:cornerRadius="8dp">
-
-                        <EditText
-                            android:id="@+id/editTextNamaJalan"
-                            android:layout_width="292dp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="true"
-                            android:text="@={viewModelLaporan.namaJalan}"
-                            android:hint="Nama Jalan"
-                            android:inputType="none"
-                            android:padding="10dp"
-                            android:textColor="@color/textColorSecondary"
-                            android:textColorHint="@color/textColorSecondary"
-                            android:textSize="16dp" />
-
-                    </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/lokasi"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/editTextLokasi"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/namaJalan"
-                    tools:ignore="MissingConstraints">
+                    android:layout_marginHorizontal="@dimen/dimen_16"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:hint="@string/koordinat"
+                    android:inputType="textMultiLine"
+                    android:overScrollMode="always"
+                    android:padding="10dp"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:text="@={viewModelLaporan.lokasi}"
+                    android:textColor="@color/textColorSecondary"
+                    android:textColorHint="@color/textColorSecondary"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/editTextNamaJalan" />
 
-                    <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="16dp"
-                        app:borderColor="@color/primaryVariant"
-                        app:borderWidth="2dp"
-                        app:cornerRadius="8dp">
-
-                        <EditText
-                            android:id="@+id/editTextLokasi"
-                            android:layout_width="292dp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="5dp"
-                            android:hint="Lokasi"
-                            android:text="@={viewModelLaporan.lokasi}"
-                            android:padding="10dp"
-                            android:textColor="@color/textColorSecondary"
-                            android:textColorHint="@color/textColorSecondary"
-                            android:textSize="16dp"
-                            android:enabled="false"/>
-
-                    </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
-                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/deskripsi"
@@ -146,36 +106,28 @@
                     android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/lokasi"
+                    app:layout_constraintTop_toBottomOf="@id/editTextLokasi"
                     tools:ignore="MissingConstraints">
-
-                    <TextView
-                        android:id="@+id/tvDeskripsi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="Deskripsi"
-                        android:textColor="@color/textColorSecondary"
-                        tools:ignore="MissingConstraints" />
 
                     <EditText
                         android:id="@+id/editTextDeskripsi"
-                        android:layout_width="292dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tvDeskripsi"
+                        android:layout_marginHorizontal="@dimen/dimen_16"
                         android:layout_marginTop="5dp"
-                        android:text="@={viewModelLaporan.deskripsi}"
-                        android:overScrollMode="always"
-                        android:padding="10dp"
+                        android:gravity="start"
+                        android:hint="@string/deskripsi"
                         android:inputType="textMultiLine"
                         android:minLines="6"
+                        android:overScrollMode="always"
+                        android:padding="10dp"
                         android:scrollbarAlwaysDrawVerticalTrack="true"
                         android:scrollbarStyle="insideInset"
                         android:scrollbars="vertical"
+                        android:text="@={viewModelLaporan.deskripsi}"
                         android:textColor="@color/textColorSecondary"
                         android:textColorHint="@color/textColorSecondary"
-                        android:textSize="16dp"
-                        android:gravity="start"/>
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
@@ -203,17 +155,18 @@
                         android:layout_width="292dp"
                         android:layout_height="150dp"
                         android:layout_below="@id/tvFoto"
-                        android:src="@{viewModelLaporan.img}"
                         android:layout_marginTop="5dp"
                         android:background="@color/grey"
                         android:ems="10"
                         android:inputType="text"
                         android:padding="10dp"
-                        android:textSize="16dp"
-                        tools:ignore="MissingConstraints"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop"
+                        android:src="@{viewModelLaporan.img}"
+                        android:textSize="16sp"
+                        tools:ignore="MissingConstraints" />
 
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/loadingBar"
                     android:layout_width="wrap_content"
@@ -225,11 +178,12 @@
                     tools:ignore="MissingConstraints">
 
                     <ProgressBar
+                        android:translationZ="100dp"
                         android:id="@+id/pb_login_loading"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
-                        android:visibility="@{viewModelLaporan.loadingEnable ? View.VISIBLE : View.GONE}"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         tools:ignore="NotSibling"
                         tools:visibility="gone" />
@@ -238,15 +192,15 @@
 
                 <Button
                     android:id="@+id/buttonLapor"
-                    android:layout_width="292dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/shape_rounded_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="@dimen/dimen_16"
+                    android:layout_marginTop="@dimen/dimen_16"
                     android:fontFamily="@font/poppins_bold"
                     android:text="Lapor"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/foto"
@@ -267,9 +221,14 @@
                     app:layout_constraintTop_toBottomOf="@id/buttonLapor"
                     tools:ignore="MissingConstraints" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_32"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonLapor" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
     </LinearLayout>

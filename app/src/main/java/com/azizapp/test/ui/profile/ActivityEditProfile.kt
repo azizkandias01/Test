@@ -1,6 +1,8 @@
 package com.azizapp.test.ui.profile
 
+import android.graphics.Color
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -39,7 +41,6 @@ class ActivityEditProfile : AppCompatActivity() {
     }
 
     private fun editFailed() {
-
         Snackbar.make(binding.root, "Edit Failed", Snackbar.LENGTH_SHORT).show()
     }
 
@@ -48,7 +49,12 @@ class ActivityEditProfile : AppCompatActivity() {
     }
 
     private fun editSuccess() {
-        Snackbar.make(binding.root, "Edit Success", Snackbar.LENGTH_SHORT).show()
+        var snackbar = Snackbar.make(binding.root, "Edit Success", Snackbar.LENGTH_SHORT)
+        val textView = snackbar.view.findViewById(R.id.snackbar_text) as TextView
+        // change Snackbar text color
+        textView.setTextColor(Color.parseColor("#FFFFFF"))
+        snackbar.view.setBackgroundColor(Color.parseColor("#2DCE89"))
+        snackbar.show()
         editProfileViewModel.onLoad()
     }
 }

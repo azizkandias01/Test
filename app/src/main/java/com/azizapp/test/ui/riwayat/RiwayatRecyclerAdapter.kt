@@ -1,11 +1,10 @@
-package com.azizapp.test
+package com.azizapp.test.ui.riwayat
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.azizapp.test.databinding.ItemListRiwayatBinding
 import com.azizapp.test.model.Pengaduan
-import com.azizapp.test.ui.riwayat.RiwayatViewModel
 
 class RiwayatRecyclerAdapter(
     val riwayatViewModel: RiwayatViewModel
@@ -16,11 +15,13 @@ class RiwayatRecyclerAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RiwayatRecyclerAdapter.RiwayatViewHolder {
-        return RiwayatViewHolder(ItemListRiwayatBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false)
+    ): RiwayatViewHolder {
+        return RiwayatViewHolder(
+            ItemListRiwayatBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
     }
 

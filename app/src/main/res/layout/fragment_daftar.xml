@@ -55,7 +55,7 @@
                             android:fontFamily="@font/poppins_bold"
                             android:text="Daftar"
                             android:textColor="@color/textPrimary"
-                            android:textSize="35dp"
+                            android:textSize="35sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -159,7 +159,7 @@
                             android:padding="10dp"
                             android:text="@={viewModelDaftar.tvNama}"
                             android:textColor="@color/textColorSecondary"
-                            android:textSize="16dp" />
+                            android:textSize="16sp" />
 
                     </RelativeLayout>
 
@@ -194,7 +194,7 @@
                             android:padding="10dp"
                             android:text="@={viewModelDaftar.tvNoHp}"
                             android:textColor="@color/textColorSecondary"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             tools:ignore="MissingConstraints" />
                     </RelativeLayout>
 
@@ -229,7 +229,7 @@
                             android:padding="10dp"
                             android:text="@={viewModelDaftar.tvEmail}"
                             android:textColor="@color/textColorSecondary"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             tools:ignore="MissingConstraints" />
 
                     </RelativeLayout>
@@ -265,7 +265,7 @@
                             android:padding="10dp"
                             android:text="@={viewModelDaftar.tvPassword}"
                             android:textColor="@color/textColorSecondary"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             app:endIconMode="password_toggle"
                             app:endIconTint="@color/textColorHint"
                             tools:ignore="MissingConstraints" />
@@ -302,7 +302,7 @@
                             android:padding="10dp"
                             android:text="@={viewModelDaftar.tvPasswordConfirmation}"
                             android:textColor="@color/textColorSecondary"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             app:endIconMode="password_toggle"
                             app:endIconTint="@color/textColorHint"
                             tools:ignore="MissingConstraints" />
@@ -310,15 +310,14 @@
 
                     <Button
                         android:id="@+id/button"
-                        android:layout_width="200dp"
-                        android:layout_height="50dp"
+                        android:layout_width="292dp"
+                        android:layout_height="64dp"
                         android:layout_marginTop="40dp"
-                        android:background="@drawable/shape_rounded_white"
                         android:fontFamily="@font/poppins_bold"
                         android:onClick="@{() -> viewModelDaftar.btnDaftar_Click()}"
                         android:text="Daftar"
                         android:textColor="@color/textPrimary"
-                        android:textSize="20dp"
+                        android:textSize="20sp"
                         android:visibility="@{viewModelDaftar.loadingEnable ? View.GONE : View.VISIBLE}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

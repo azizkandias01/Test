@@ -13,6 +13,7 @@ import com.azizapp.test.R
 import com.azizapp.test.databinding.FragmentProfileBinding
 import com.azizapp.test.ui.editpassword.EditPasswordActivity
 import com.azizapp.test.ui.login.LoginActivity
+import com.azizapp.test.ui.tentang_kami.ActivityTentangKami
 import com.azizapp.test.utill.Session
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,24 +35,31 @@ class ProfileFragment : Fragment() {
             viewModeEditProfile = editProfileViewModel
         }
 
-        val ubahProfil : RelativeLayout = binding.root.findViewById(R.id.ubahProfil)
-        val gantiPassword : RelativeLayout = binding.root.findViewById(R.id.ubahPassword)
-        val keluar:RelativeLayout = binding.root.findViewById(R.id.keluar)
+        with(binding){
+            ubahProfil.setOnClickListener {
+                val intent = Intent(activity, ActivityEditProfile::class.java)
+                startActivity(intent)
+            }
 
-        ubahProfil.setOnClickListener {
-            val intent = Intent(activity, ActivityEditProfile::class.java)
-            startActivity(intent)
+            ubahPassword.setOnClickListener {
+                val intent = Intent(activity, EditPasswordActivity::class.java)
+                startActivity(intent)
+            }
+            keluar.setOnClickListener {
+                Session.unset()
+                val intent = Intent(activity, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+            }
+
+            tentangKami.setOnClickListener {
+                val intent = Intent(activity, ActivityTentangKami::class.java)
+                startActivity(intent)
+            }
         }
 
-        gantiPassword.setOnClickListener {
-            val intent = Intent(activity, EditPasswordActivity::class.java)
-            startActivity(intent)
-        }
-        keluar.setOnClickListener{
-            Session.bearer = ""
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-        }
+
+
         editProfileViewModel.onLoad()
         // Inflate the layout for this fragment
         return binding.root

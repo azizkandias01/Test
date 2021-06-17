@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName
 
 data class DataPengaduanMasyarakat(
     @SerializedName("nama_jalan")
-    var namaJalan: String?="",
+    var namaJalan: String? = "",
     @SerializedName("foto")
-    var foto: String?="UNDEFINED",
+    var foto: String? = "UNDEFINED",
     @SerializedName("tipe_pengaduan")
-    var tipePengaduan: String?="Banjir",
+    var tipePengaduan: String? = "Banjir",
     @SerializedName("deskripsi_pengaduan")
-    var deskripsiPengaduan: String?="",
+    var deskripsiPengaduan: String? = "",
     @SerializedName("status_pengaduan")
-    var statusPengaduan: String?="Belum diverifikasi",
+    var statusPengaduan: String? = "Belum diverifikasi",
     @SerializedName("geometry")
     var geometry: String?
 )

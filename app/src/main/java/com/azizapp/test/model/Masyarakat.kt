@@ -7,19 +7,19 @@ data class Masyarakat(
     @SerializedName("alamat")
     var alamat: String? = "",
     @SerializedName("created_at")
-    var createdAt: Any?= "",
+    var createdAt: Any? = "",
     @SerializedName("email")
     var email: String? = "",
     @SerializedName("foto")
-    var foto: String?= "",
+    var foto: String? = "",
     @SerializedName("id")
-    var id: String?= "",
+    var id: String? = "",
     @SerializedName("nama")
-    var nama: String?= "",
+    var nama: String? = "",
     @SerializedName("no_hp")
-    var noHp: String?= "",
+    var noHp: String? = "",
     @SerializedName("updated_at")
-    var updatedAt: Any?= "",
+    var updatedAt: Any? = "",
     @SerializedName("password")
-    var password : String?= ""
+    var password: String? = ""
 )

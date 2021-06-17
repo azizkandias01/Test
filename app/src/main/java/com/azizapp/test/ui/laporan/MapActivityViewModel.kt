@@ -11,13 +11,14 @@ import java.util.*
 
 class MapActivityViewModel : ViewModel() {
 
-    var address = "";
-    var city = "";
+    var address = ""
+    var city = ""
     var lat: Double = 0.0
     var long: Double = 0.0
 
     lateinit var geocoder: Geocoder
-    lateinit var addresses:MutableList<Address>
+    lateinit var addresses: MutableList<Address>
+
     companion object {
         const val ACTION_SUCCESS = "ACTION_SUCCESS"
         const val ACTION_FAILED = "ACTION_FAILED"
@@ -29,13 +30,13 @@ class MapActivityViewModel : ViewModel() {
     val longitude = MutableLiveData<Double>()
 
     fun changeStreetName(context: Context, lat: Double, long: Double) {
-            geocoder = Geocoder(context, Locale.getDefault())
-            addresses= geocoder.getFromLocation(lat, long, 1)
-            address = addresses[0].getAddressLine(0).toString()
-            city = addresses[0].locality.toString()
-            latitude.postValue(lat)
-            longitude.postValue(long)
-            namaJalan.postValue("$address $city")
+        geocoder = Geocoder(context, Locale.getDefault())
+        addresses = geocoder.getFromLocation(lat, long, 1)
+        address = addresses[0].getAddressLine(0).toString()
+        city = addresses[0].locality.toString()
+        latitude.postValue(lat)
+        longitude.postValue(long)
+        namaJalan.postValue("$address $city")
 
 
     }

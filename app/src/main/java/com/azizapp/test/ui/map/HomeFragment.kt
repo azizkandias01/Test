@@ -7,13 +7,16 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.azizapp.test.CustomInfoWindowAdapter
 import com.azizapp.test.R
+import com.azizapp.test.databinding.FragmentHomeBinding
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -22,29 +25,31 @@ import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), OnMapReadyCallback {
+
     private lateinit var googleMap: GoogleMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var binding : FragmentHomeBinding
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
     private var markerList: ArrayList<Marker>? = null
-    var markerListTersumbat: ArrayList<Marker>? = null
+    private var markerListTersumbat: ArrayList<Marker>? = null
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mapView2.onCreate(savedInstanceState)
         mapView2.onResume()
 
         mapView2.getMapAsync(this)
         HomeViewModel.onLoad()
-       HomeViewModel.titikTersumbat()
+        HomeViewModel.titikTersumbat()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val i = inflater.inflate(R.layout.fragment_home, container, false)
-
+        binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
         // Inflate the layout for this fragment
         bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet)
 
@@ -69,15 +74,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }
         })
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        return i
+        return binding.root
     }
 
     override fun onMapReady(map: GoogleMap?) {
         map?.let {
             googleMap = it
         }
-
-        googleMap.setInfoWindowAdapter(CustomInfoWindowAdapter(this.activity))
 
         googleMap.setOnMapLoadedCallback {
             HomeViewModel.listTitikBanjir.forEach { titik ->
@@ -111,9 +114,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             tvSubtitle.text = keteranganFoto[0]
             Glide.with(this)
                 .load("https://gis-drainase.pocari.id/storage/app/public/images/${keteranganFoto[1]}")
-                .into(gambar);
+                .into(gambar)
             true
         }
+        HomeViewModel.loadingEnable.observe(viewLifecycleOwner,{
+            if (it){
+                binding.pbLoadTitik.visibility = View.VISIBLE
+            }else{
+                binding.pbLoadTitik.visibility = View.GONE
+            }
+        })
     }
 
     fun geoToLatLong(string: String): LatLng {

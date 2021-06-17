@@ -1,6 +1,5 @@
 package com.azizapp.test.ui.login
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,11 +7,13 @@ import com.azizapp.test.model.Masyarakat
 import com.azizapp.test.repository.MainRepository
 import com.azizapp.test.utill.Resource
 import com.azizapp.test.utill.Session
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class
-LoginViewModel @ViewModelInject constructor(
-    val repository: MainRepository
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val repository: MainRepository
 ) : ViewModel() {
 
     companion object {

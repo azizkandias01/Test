@@ -1,6 +1,5 @@
 package com.azizapp.test.ui.profile
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,10 +7,13 @@ import com.azizapp.test.model.EditMasyarakatRequest
 import com.azizapp.test.repository.MainRepository
 import com.azizapp.test.ui.editpassword.EditPasswordViewModel
 import com.azizapp.test.utill.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EditProfileViewModel @ViewModelInject constructor(
-    public val repository: MainRepository
+@HiltViewModel
+class EditProfileViewModel @Inject constructor(
+    private val repository: MainRepository
 ) : ViewModel() {
 
     companion object {
@@ -44,7 +46,8 @@ class EditProfileViewModel @ViewModelInject constructor(
             }
         }
     }
-    fun saveChanges(){
+
+    fun saveChanges() {
         viewModelScope.launch {
             val editMasyarakatRequest = EditMasyarakatRequest(
                 nama = nama.value,

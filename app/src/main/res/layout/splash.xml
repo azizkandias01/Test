@@ -5,21 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity">
+    tools:context=".ui.welcome.MainActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintHeight_percent=".74" />
+        app:layout_constraintHeight_percent=".74"
+        tools:ignore="MissingConstraints" />
 
     <me.relex.circleindicator.CircleIndicator3
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        app:layout_constraintBottom_toTopOf="@id/action"
         app:ci_drawable="@drawable/circleindicator"
+        app:layout_constraintBottom_toTopOf="@id/action"
         tools:ignore="MissingConstraints" />
 
     <RelativeLayout
@@ -34,13 +34,13 @@
         <Button
             android:id="@+id/btnBuatAkun"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/textPrimary"
             android:text="Buat Akun"
-            android:textAllCaps="false"
-            android:textSize="18dp"
-            android:background="@drawable/shape_rounded_border_yellow"/>
+            android:textAllCaps="true"
+            android:textSize="18sp" />
 
         <RelativeLayout
             android:id="@+id/rl_masuk"
@@ -93,7 +93,7 @@
                 android:layout_toRightOf="@id/tvGuest"
                 android:clickable="true"
                 android:fontFamily="@font/poppins_bold"
-                android:text="tamu"
+                android:text="Tamu"
                 android:textColor="@color/primary" />
         </RelativeLayout>
 

@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:background="@drawable/shape_stroke_bottom"
+        android:backgroundTint="@color/primary"
+        android:padding="15dp"
         android:text="Pilih Jenis Laporan"
         android:textColor="@color/white"
-        android:textSize="24dp"
-        android:padding="15dp"
-        android:background="@drawable/shape_stroke_bottom"
-        android:backgroundTint="@color/primary"/>
+        android:textSize="24sp" />
 
     <LinearLayout
         android:id="@+id/titik_tersumbat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_stroke_bottom"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
-        android:background="@drawable/shape_stroke_bottom"
         android:orientation="horizontal"
         android:padding="15dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,6 +34,7 @@
             android:textColor="#737373"
             android:textSize="18sp" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/titik_banjir"
         android:layout_width="match_parent"
@@ -40,6 +43,7 @@
         android:foreground="?attr/selectableItemBackground"
         android:orientation="horizontal"
         android:padding="15dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

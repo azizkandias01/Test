@@ -41,20 +41,29 @@ class MainRepository @Inject constructor(
 
     suspend fun masyarakatLaporan(
         bearer: String,
-        nama_jalan: RequestBody,
-        image: MultipartBody.Part,
-        tipe_pengaduan: RequestBody,
-        deskripsi_pengaduan: RequestBody,
-        geometry: RequestBody
+        dataPengaduanMasyarakat: DataPengaduanMasyarakat
     ): Resource<DataPengaduanMasyarakat> {
         masyarakatService.pengaduanMasyarakat(
             bearer,
             "application/json",
-            nama_jalan,
-            image,
-            tipe_pengaduan,
-            deskripsi_pengaduan,
-            geometry
+            dataPengaduanMasyarakat
+        ).let { response ->
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    return Resource.Success(it)
+                }
+            }
+            return Resource.Error(response.message())
+        }
+    }
+
+
+    suspend fun masyarakatLaporanAnonymouse(
+        dataPengaduanMasyarakat: DataPengaduanMasyarakat
+    ): Resource<DataPengaduanMasyarakat> {
+        masyarakatService.pengaduanMasyarakatAnonim(
+            "application/json",
+            dataPengaduanMasyarakat
         ).let { response ->
             if (response.isSuccessful) {
                 response.body()?.let {
@@ -94,6 +103,7 @@ class MainRepository @Inject constructor(
             return Resource.Error(response.message())
         }
     }
+
     suspend fun getTitikTersumbat(): Resource<TitikTersumbatResponse> {
         masyarakatService.titikTersumbat().let { response ->
             if (response.isSuccessful) {
