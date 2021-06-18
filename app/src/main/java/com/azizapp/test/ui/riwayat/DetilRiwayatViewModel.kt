@@ -25,7 +25,7 @@ class DetilRiwayatViewModel @Inject constructor(
     }
 
     fun onLoad() {
-        val bearer: String? = "Bearer " + com.azizapp.test.utill.Session.bearer
+        val bearer: String = "Bearer " + com.azizapp.test.utill.Session.bearer
         viewModelScope.launch {
             when (val response = bearer?.let { repository.getPengaduanMasyarakat(it) }) {
                 is Resource.Success -> {

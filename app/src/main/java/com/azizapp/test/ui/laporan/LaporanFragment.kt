@@ -1,9 +1,16 @@
 package com.azizapp.test.ui.laporan
 
-import android.annotation.SuppressLint
+import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,50 +21,74 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.azizapp.test.R
+import com.azizapp.test.api.MyAPI
 import com.azizapp.test.databinding.FragmentLaporanBinding
+import com.azizapp.test.model.DataPengaduanMasyarakat
 import com.azizapp.test.utill.Session
 import com.azizapp.test.utill.snackbar
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_laporan.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.util.*
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class LaporanFragment @Inject constructor(private val typeUser: String) : Fragment() {
 
+    var address = "";
+    var city = "";
+    var lat: Double = 0.0
+    var long: Double = 0.0
+//    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var binding: FragmentLaporanBinding
     private val laporanViewModel: LaporanViewModel by viewModels()
 
-    private var imageUri: Uri? = null
+    var imageUri: Uri? = null
     var sImage: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         pilihLaporan()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_laporan, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModelLaporan = laporanViewModel
         }
-
         binding.editTextNamaJalan.setOnClickListener {
             val intent = Intent(activity, LaporanActivity::class.java)
             startActivityForResult(intent, 100)
         }
+        laporanViewModel.action.observe(this.viewLifecycleOwner, Observer { action ->
+            when (action) {
+                LaporanViewModel.ACTION_SUCCESS -> actionSuccess()
+                LaporanViewModel.ACTION_ERROR -> actionError()
+                LaporanViewModel.ACTION_FAILED -> actionFailed()
+            }
 
+        })
         binding.editGambar.setOnClickListener {
             Intent(Intent.ACTION_PICK).also {
                 it.type = "image/*"
@@ -66,39 +97,23 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 startActivityForResult(it, 1)
             }
         }
-        binding.buttonLapor.setOnClickListener {
+        binding.buttonLapor.setOnClickListener() {
             when (typeUser) {
                 "login" -> uploadImage()
                 "anonim" -> uploadImageAnonym()
             }
         }
-
-        return binding.root
     }
 
-    private fun fetchLocation() {
-        val task = fusedLocationProviderClient.lastLocation
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                101
-            )
-            return
-        }
-        task.addOnSuccessListener {
-            if (it!=null){
-                getAddress(it.latitude,it.longitude)
-                Toast.makeText(requireContext(),"${it.latitude}, ${it.longitude}",Toast.LENGTH_SHORT).show()
+    private fun openDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.pilih_jenis_laporan))
+            .setMessage(resources.getString(R.string.dialog_content))
+            .setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
+                dialog.dismiss()
+                pilihLaporan()
             }
-        }
+            .show()
     }
 
     private fun getAddress(latitude : Double, longitude : Double){
@@ -128,12 +143,11 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
             val lat = data.getDoubleExtra("LAT", 0.0)
             val long = data.getDoubleExtra("LONG", 0.0)
             editTextNamaJalan.setText(data.getStringExtra("ADDRESS"))
-            editTextLokasi.setText("[$lat,$long]")
+            editTextLokasi.setText(StringBuilder("[$lat,$long]"))
         } else if (requestCode == 1 && data != null) {
             imageUri = data.data
             editGambar.setImageURI(imageUri)
@@ -144,10 +158,8 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
 
             val bytes = byteArrayOutputStream.toByteArray()
             sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
-
         }
     }
-
 
     fun pilihLaporan(): String {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
@@ -157,23 +169,23 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
         dialog.show()
 
         view.titik_tersumbat.setOnClickListener {
-            jenis = "Titik Tersumbat"
+            jenis = getString(R.string.titik_tersumbat)
             Toast.makeText(
                 activity,
                 "Anda melaporkan $jenis", Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
-            tv_laporkan.text = "Laporkan $jenis"
+            tv_laporkan.text = StringBuilder("Laporkan $jenis")
         }
 
         view.titik_banjir.setOnClickListener {
-            jenis = "Titik Banjir"
+            jenis = getString(R.string.titik_banjir)
             Toast.makeText(
                 activity,
                 "Anda melaporkan $jenis", Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
-            tv_laporkan.text = "Laporkan $jenis"
+            tv_laporkan.text = StringBuilder("Laporkan $jenis")
         }
 
         dialog.setOnDismissListener {

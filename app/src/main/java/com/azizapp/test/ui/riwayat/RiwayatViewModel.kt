@@ -1,5 +1,6 @@
 package com.azizapp.test.ui.riwayat
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,7 +38,7 @@ class RiwayatViewModel @Inject constructor(
                 }
                 is Resource.Error -> {
                     loadingEnable.postValue(false)
-                    //action.postValue(LoginViewModel.ACTION_LOGIN_ERROR)
+                    // action.postValue(LoginViewModel.ACTION_LOGIN_ERROR)
                 }
             }
         }

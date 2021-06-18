@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.azizapp.test.CustomInfoWindowAdapter
 import com.azizapp.test.R
 import com.azizapp.test.databinding.FragmentHomeBinding
 import com.bumptech.glide.Glide
@@ -25,35 +26,33 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
 
+
 @AndroidEntryPoint
 class HomeFragment : Fragment(), OnMapReadyCallback {
-
     private lateinit var googleMap: GoogleMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    private lateinit var binding : FragmentHomeBinding
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
     private var markerList: ArrayList<Marker>? = null
-    private var markerListTersumbat: ArrayList<Marker>? = null
+    var markerListTersumbat: ArrayList<Marker>? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         mapView2.onCreate(savedInstanceState)
         mapView2.onResume()
 
         mapView2.getMapAsync(this)
         HomeViewModel.onLoad()
-        HomeViewModel.titikTersumbat()
+       HomeViewModel.titikTersumbat()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
 
         val i = inflater.inflate(R.layout.fragment_home, container, false)
-        binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
         // Inflate the layout for this fragment
-        bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet)
+        bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet).apply { BottomSheetDialog(requireContext(), R.style.BottomSheetDialog) }
 
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
@@ -76,7 +75,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }
         })
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        return binding.root
+        return i
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -110,12 +109,17 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f))
 
         googleMap.setOnMarkerClickListener { marker ->
+            val circularProgressDrawable = CircularProgressDrawable(requireContext())
+            circularProgressDrawable.strokeWidth = 5f
+            circularProgressDrawable.centerRadius = 30f
+            circularProgressDrawable.start()
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             tvTitle.text = marker.title
             val keteranganFoto: List<String> = marker.snippet.split("|")
-            tvSubtitle.text = "Keterangan Drainase: ${keteranganFoto[0]}"
+            tvSubtitle.text = StringBuilder("Keterangan Drainase: ${keteranganFoto[0]}")
             Glide.with(this)
                 .load("https://gis-drainase.pocari.id/storage/app/public/images/${keteranganFoto[1]}")
+                .placeholder(circularProgressDrawable)
                 .into(gambar)
             true
         }

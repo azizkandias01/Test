@@ -81,7 +81,6 @@ class LaporanActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.mMap = googleMap
-        val pekanbaru = LatLng(0.510440, 101.438309)
         val geocoder = Geocoder(this, Locale.getDefault())
 
         this.mMap?.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {

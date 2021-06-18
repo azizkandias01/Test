@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_laporan.*
 import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.fragment_map.map
 import kotlinx.android.synthetic.main.fragment_nama_jalan.*
+import java.lang.StringBuilder
 import java.util.*
 
 
@@ -135,6 +136,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         long = longitude
 
         editTextNamaJalan.setText(address)
-        editTextLokasi.setText("[${lat},${long}]")
+        editTextLokasi.setText(StringBuilder("[${lat},${long}]"))
     }
 }
