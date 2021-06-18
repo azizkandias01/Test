@@ -8,9 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.azizapp.test.CustomInfoWindowAdapter
 import com.azizapp.test.R
-import com.azizapp.test.databinding.FragmentHomeBinding
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -123,13 +121,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 .into(gambar)
             true
         }
-        HomeViewModel.loadingEnable.observe(viewLifecycleOwner,{
-            if (it){
-                binding.pbLoadTitik.visibility = View.VISIBLE
-            }else{
-                binding.pbLoadTitik.visibility = View.GONE
-            }
-        })
+//        HomeViewModel.loadingEnable.observe(viewLifecycleOwner,{
+//            if (it){
+//                binding.pbLoadTitik.visibility = View.VISIBLE
+//            }else{
+//                binding.pbLoadTitik.visibility = View.GONE
+//            }
+//        })
     }
 
     fun geoToLatLong(string: String): LatLng {

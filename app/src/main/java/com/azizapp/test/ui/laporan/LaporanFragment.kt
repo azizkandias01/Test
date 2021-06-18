@@ -27,7 +27,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.azizapp.test.R
-import com.azizapp.test.api.MyAPI
 import com.azizapp.test.databinding.FragmentLaporanBinding
 import com.azizapp.test.model.DataPengaduanMasyarakat
 import com.azizapp.test.utill.Session
@@ -51,8 +50,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LaporanFragment @Inject constructor(private val typeUser: String) : Fragment() {
 
-    var address = "";
-    var city = "";
+    var address = ""
+    var city = ""
     var lat: Double = 0.0
     var long: Double = 0.0
 //    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -97,7 +96,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 startActivityForResult(it, 1)
             }
         }
-        binding.buttonLapor.setOnClickListener() {
+        binding.buttonLapor.setOnClickListener {
             when (typeUser) {
                 "login" -> uploadImage()
                 "anonim" -> uploadImageAnonym()
@@ -127,14 +126,6 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
 
         editTextNamaJalan.setText(address)
         editTextLokasi.setText("[${lat},${long}]")
-    }
-
-    private fun actionFailed() {
-        Snackbar.make(binding.root, "Action Failed", Snackbar.LENGTH_SHORT).show()
-    }
-
-    private fun actionError() {
-        Snackbar.make(binding.root, "Action Error", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun actionSuccess() {
