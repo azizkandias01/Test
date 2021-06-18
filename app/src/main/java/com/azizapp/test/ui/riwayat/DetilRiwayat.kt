@@ -1,6 +1,7 @@
 package com.azizapp.test.ui.riwayat
 
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -32,6 +33,12 @@ class DetilRiwayat : AppCompatActivity() {
         binding.apply {
             lifecycleOwner = this@DetilRiwayat
             data = item
+        }
+
+        val ibBack: ImageButton = findViewById(R.id.ib_back)
+
+        ibBack.setOnClickListener{
+            finish()
         }
     }
 

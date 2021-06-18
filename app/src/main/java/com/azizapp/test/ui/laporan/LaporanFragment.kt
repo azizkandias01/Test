@@ -7,10 +7,12 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.system.Os.accept
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,11 +22,14 @@ import com.azizapp.test.databinding.FragmentLaporanBinding
 import com.azizapp.test.utill.Session
 import com.azizapp.test.utill.snackbar
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_laporan.*
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class LaporanFragment @Inject constructor(private val typeUser: String) : Fragment() {
@@ -71,7 +76,57 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
+    private fun fetchLocation() {
+        val task = fusedLocationProviderClient.lastLocation
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                101
+            )
+            return
+        }
+        task.addOnSuccessListener {
+            if (it!=null){
+                getAddress(it.latitude,it.longitude)
+                Toast.makeText(requireContext(),"${it.latitude}, ${it.longitude}",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun getAddress(latitude : Double, longitude : Double){
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        val addresses: MutableList<Address>? =
+            geocoder.getFromLocation(latitude, longitude, 1)
+        address = addresses?.get(0)?.getAddressLine(0).toString()
+        city = addresses?.get(0)?.locality.toString()
+        lat = latitude
+        long = longitude
+
+        editTextNamaJalan.setText(address)
+        editTextLokasi.setText("[${lat},${long}]")
+    }
+
+    private fun actionFailed() {
+        Snackbar.make(binding.root, "Action Failed", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun actionError() {
+        Snackbar.make(binding.root, "Action Error", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun actionSuccess() {
+        val intent = Intent(activity, SuccessPage::class.java)
+        startActivity(intent)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
@@ -119,6 +174,12 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             ).show()
             dialog.dismiss()
             tv_laporkan.text = "Laporkan $jenis"
+        }
+
+        dialog.setOnDismissListener {
+            if (jenis == "") {
+                openDialog()
+            }
         }
         return jenis
     }

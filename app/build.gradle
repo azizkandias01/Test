@@ -107,11 +107,16 @@ dependencies {
 
     //image
     implementation 'pub.devrel:easypermissions:1.2.0'
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    kapt 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
+<<<<<<<<< Temporary merge branch 1
     //lottie animation
     implementation 'com.airbnb.android:lottie:3.4.0'
+=========
+    //Location
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+>>>>>>>>> Temporary merge branch 2
 }
 allprojects {
     repositories {
