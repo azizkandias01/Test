@@ -44,7 +44,6 @@ class RiwayatViewModel @ViewModelInject constructor(
                             statusPengaduan = it.statusPengaduan.toString(),
                             tipePengaduan = it.tipePengaduan.toString()
                         )
-
                         listPengaduan.add(pengaduan)
                     }
                     action.postValue(RiwayatViewModel.ACTION_RIWAYAT_FETCHED)

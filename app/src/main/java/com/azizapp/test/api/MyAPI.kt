@@ -16,12 +16,6 @@ interface MyAPI {
     fun pengaduanMasyarakat(
         @Header("Authorization") token: String,
         @Header("Accept") accept: String,
-//        @Part("nama_jalan") nama_jalan: RequestBody,
-        //@Part image: MultipartBody.Part,
-//        @Part("foto") foto : RequestBody,
-//        @Part("tipe_pengaduan") tipe_pengaduan: RequestBody,
-//        @Part("deskripsi_pengaduan") deskripsi_pengaduan: RequestBody,
-//        @Part("geometry") geometry: RequestBody
         @Body dataPengaduanMasyarakat: DataPengaduanMasyarakat
     ): Call<DataPengaduanMasyarakat>
 
