@@ -1,5 +1,6 @@
 package com.azizapp.test.ui.riwayat
 
+import androidx.hilt.lifecycle.R
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,7 +44,6 @@ class RiwayatViewModel @ViewModelInject constructor(
                             statusPengaduan = it.statusPengaduan.toString(),
                             tipePengaduan = it.tipePengaduan.toString()
                         )
-
                         listPengaduan.add(pengaduan)
                     }
                     action.postValue(RiwayatViewModel.ACTION_RIWAYAT_FETCHED)
