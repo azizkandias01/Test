@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 
     <application
         android:name=".BaseApplication"
@@ -29,7 +30,6 @@
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.welcome.MainActivity" />
         <activity android:name=".ui.laporan.LaporanActivity" />
-        <activity android:name=".ui.laporan.MapActivity" />
         <activity android:name=".ui.laporan.SuccessPage" />
         <activity android:name=".ui.navigationbar.MainActivityNavGuest" />
         <activity android:name=".ui.editpassword.EditPasswordActivity" />
