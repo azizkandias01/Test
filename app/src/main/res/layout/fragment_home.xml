@@ -7,11 +7,9 @@
     android:background="@android:color/white"
     tools:context=".ui.map.HomeFragment">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView2"
@@ -33,7 +31,5 @@
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <include layout="@layout/layout_persistent_bottom_sheet"/>
+    <include layout="@layout/bottom_sheet_detail" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

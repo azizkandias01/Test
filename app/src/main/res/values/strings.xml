@@ -51,4 +51,11 @@
     <string name="titik_banjir">Titik Banjir</string>
     <string name="lapor">Lapor</string>
     <string name="load_image_failed">load image failed</string>
+    <string name="pilih_dari_peta">Pilih dari Peta</string>
+    <string name="foto_lokasi">Foto Lokasi</string>
+    <string name="tipe_pengaduan">Tipe Pengaduan: &#160;</string>
+    <string name="name">Nama Lengkap</string>
+    <string name="alamat">Alamat</string>
+    <string name="email">Email</string>
+    <string name="nomor_hp">Nomor Handphone</string>
 </resources>

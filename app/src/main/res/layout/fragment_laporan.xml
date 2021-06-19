@@ -53,138 +53,211 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/editTextNamaJalan"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/nama_jalan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/dimen_16"
-                        android:layout_marginTop="@dimen/dimen_32"
+                        android:layout_marginTop="8dp"
                         android:clickable="true"
-                        android:gravity="start"
-                        android:hint="@string/nama_jalan"
-                        android:inputType="textMultiLine"
-                        android:overScrollMode="always"
-                        android:padding="10dp"
-                        android:scrollbarAlwaysDrawVerticalTrack="true"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbars="vertical"
-                        android:text="@={viewModelLaporan.namaJalan}"
-                        android:textColor="@color/textColorSecondary"
-                        android:textColorHint="@color/textColorSecondary"
-                        android:textSize="16sp"
-                        tools:ignore="MissingConstraints" />
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <EditText
-                        android:id="@+id/editTextLokasi"
+                        <TextView
+                            android:id="@+id/tv_title_nama_jalan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/nama_jalan"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_nama_jalan"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/pilih_dari_peta"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="12dp"
+                            app:layout_constraintEnd_toStartOf="@+id/imageView1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_title_nama_jalan" />
+
+                        <ImageView
+                            android:id="@+id/imageView1"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_arrow_forward"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/textColorSecondary" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/koordinat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/dimen_16"
-                        android:layout_marginTop="5dp"
-                        android:enabled="false"
-                        android:gravity="start"
-                        android:hint="@string/koordinat"
-                        android:inputType="textMultiLine"
-                        android:overScrollMode="always"
-                        android:padding="10dp"
-                        android:scrollbarAlwaysDrawVerticalTrack="true"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbars="vertical"
-                        android:text="@={viewModelLaporan.lokasi}"
-                        android:textColor="@color/textColorSecondary"
+                        android:layout_marginTop="@dimen/dimen_16"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/nama_jalan">
+
+                        <TextView
+                            android:id="@+id/tv_title_koordinat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/koordinat"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_koordinat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:drawablePadding="10dp"
+                            android:text="Lokasi belum dipilih"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="12dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_title_koordinat" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/material_et_deskripsi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:textColorHint="@color/textColorSecondary"
                         android:textSize="16sp"
-                        app:layout_constraintTop_toBottomOf="@id/editTextNamaJalan" />
+                        app:hintTextColor="@color/black"
+                        app:layout_constraintTop_toBottomOf="@id/koordinat">
 
-
-                    <RelativeLayout
-                        android:id="@+id/deskripsi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/editTextLokasi"
-                        tools:ignore="MissingConstraints">
-
-                        <EditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextDeskripsi"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/dimen_16"
-                            android:layout_marginTop="5dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="31dp"
+                            android:layout_marginTop="@dimen/dimen_16"
+                            android:backgroundTint="@color/grey"
+                            android:focusable="true"
                             android:gravity="start"
                             android:hint="@string/deskripsi"
                             android:inputType="textMultiLine"
-                            android:minLines="6"
-                            android:overScrollMode="always"
-                            android:padding="10dp"
-                            android:scrollbarAlwaysDrawVerticalTrack="true"
-                            android:scrollbarStyle="insideInset"
-                            android:scrollbars="vertical"
+                            android:lines="5"
                             android:text="@={viewModelLaporan.deskripsi}"
-                            android:textColor="@color/textColorSecondary"
-                            android:textColorHint="@color/textColorSecondary"
-                            android:textSize="16sp" />
+                            android:textColor="@color/black" />
 
-                    </RelativeLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <RelativeLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/foto"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/deskripsi"
-                        tools:ignore="MissingConstraints">
+                        android:layout_marginHorizontal="@dimen/dimen_16"
+                        android:layout_marginTop="@dimen/dimen_16"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/material_et_deskripsi">
 
                         <TextView
-                            android:id="@+id/tvFoto"
+                            android:id="@+id/tv_title_foto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_medium"
-                            android:text="Foto Lokasi"
-                            android:textColor="@color/textColorSecondary"
-                            tools:ignore="MissingConstraints" />
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:drawablePadding="10dp"
+                            android:text="@string/foto_lokasi"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/editGambar"
                             android:layout_width="292dp"
-                            android:layout_height="150dp"
-                            android:layout_below="@id/tvFoto"
+                            android:layout_height="200dp"
                             android:layout_marginTop="5dp"
                             android:background="@color/grey"
                             android:ems="10"
                             android:inputType="text"
                             android:padding="10dp"
-                            android:scaleType="centerCrop"
+                            android:scaleType="centerInside"
                             android:src="@{viewModelLaporan.img}"
                             android:textSize="16sp"
-                            tools:ignore="MissingConstraints" />
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_title_foto" />
 
-                    </RelativeLayout>
+                        <TextView
+                            android:id="@+id/tv_pilih_dari_galeri"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:drawablePadding="10dp"
+                            android:text="Pilih dari Galeri Anda"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="12dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_title_foto" />
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_arrow_forward"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/textColorSecondary" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <ProgressBar
                         android:id="@+id/pb_login_loading"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
-                        android:translationZ="100dp"
                         android:visibility="@{viewModelLaporan.loadingEnable ? View.VISIBLE : View.GONE}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/foto"
-                        app:layout_constraintVertical_bias="1.0"
+                        app:layout_constraintBottom_toBottomOf="@id/buttonLapor"
+                        app:layout_constraintEnd_toEndOf="@id/buttonLapor"
+                        app:layout_constraintStart_toStartOf="@id/buttonLapor"
+                        app:layout_constraintTop_toTopOf="@id/buttonLapor"
                         tools:visibility="visible" />
+
                     <Button
                         android:id="@+id/buttonLapor"
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
-                        android:layout_marginHorizontal="@dimen/dimen_16"
+                        android:layout_marginHorizontal="31dp"
                         android:layout_marginTop="@dimen/dimen_16"
+                        android:visibility="@{viewModelLaporan.loadingEnable ? View.INVISIBLE : View.VISIBLE}"
                         android:fontFamily="@font/poppins_bold"
                         android:text="@string/lapor"
                         android:textAllCaps="true"
@@ -198,5 +271,4 @@
             </ScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-
 </layout>

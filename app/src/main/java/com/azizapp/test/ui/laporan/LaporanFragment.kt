@@ -33,14 +33,16 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LaporanFragment @Inject constructor(private val typeUser: String) : Fragment() {
 
-
+    var address = ""
+    var city = ""
     var lat: Double = 0.0
     var long: Double = 0.0
+//    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var binding: FragmentLaporanBinding
     private val laporanViewModel: LaporanViewModel by viewModels()
 
-    private var imageUri: Uri? = null
-    private var sImage: String? = null
+    var imageUri: Uri? = null
+    var sImage: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,7 +63,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             val intent = Intent(activity, LaporanActivity::class.java)
             startActivityForResult(intent, 100)
         }
-        laporanViewModel.action.observe(this.viewLifecycleOwner, { action ->
+        laporanViewModel.action.observe(this.viewLifecycleOwner, Observer { action ->
             when (action) {
                 LaporanViewModel.ACTION_SUCCESS -> actionSuccess()
                 LaporanViewModel.ACTION_ERROR -> actionError()
@@ -103,14 +105,11 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
-
             val lat = data.getDoubleExtra("LAT", 0.0)
             val long = data.getDoubleExtra("LONG", 0.0)
-            editTextNamaJalan.setText(data.getStringExtra("ADDRESS"))
-            editTextLokasi.setText(StringBuilder("[$lat,$long]"))
-
+            tv_nama_jalan.text = data.getStringExtra("ADDRESS")
+            tv_koordinat.text = StringBuilder("[$lat,$long]")
         } else if (requestCode == 1 && data != null) {
-
             imageUri = data.data
             binding.editGambar.setImageURI(imageUri)
 
@@ -122,15 +121,14 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             }
 
             val byteArrayOutputStream = ByteArrayOutputStream()
-            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
 
             val bytes = byteArrayOutputStream.toByteArray()
             sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
         }
     }
 
-    @SuppressLint("InflateParams")
-    private fun pilihLaporan(): String {
+    fun pilihLaporan(): String {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
         val dialog = BottomSheetDialog(requireActivity())
         var jenis = ""
@@ -144,7 +142,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 "Anda melaporkan $jenis", Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
-            binding.tvLaporkan.text = StringBuilder("Laporkan $jenis")
+            tv_laporkan.text = StringBuilder("Laporkan $jenis")
         }
 
         view.titik_banjir.setOnClickListener {
@@ -154,7 +152,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 "Anda melaporkan $jenis", Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
-            binding.tvLaporkan.text = StringBuilder("Laporkan $jenis")
+            tv_laporkan.text = StringBuilder("Laporkan $jenis")
         }
 
         dialog.setOnDismissListener {
@@ -173,8 +171,8 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             return
         }
 
-        val geometry = "{\"type\": \"Point\", \"coordinates\": ${editTextLokasi.text}}"
-        val namaJalan = editTextNamaJalan.text.toString()
+        val geometry = "{\"type\": \"Point\", \"coordinates\": ${tv_koordinat.text}}"
+        val namaJalan = tv_nama_jalan.text.toString()
         val image = sImage
         val tipePengaduan = tv_laporkan.text.toString().substring(15)
         val deskripsi = editTextDeskripsi.text.toString()

@@ -15,7 +15,7 @@ fun TextView.setColorText(status: String) {
 
         "laporan selesai" -> setTextColor(ContextCompat.getColor(context, R.color.green ))
 
-        "pengajuan ditolak" -> setTextColor(ContextCompat.getColor(context, R.color.error ))
+        "pengajuan ditolak" -> setTextColor(ContextCompat.getColor(context, R.color.danger ))
 
         "sudah diverifikasi" -> setTextColor(ContextCompat.getColor(context, R.color.orange ))
 

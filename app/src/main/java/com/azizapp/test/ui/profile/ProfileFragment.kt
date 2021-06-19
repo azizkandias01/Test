@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import com.azizapp.test.R
 import com.azizapp.test.databinding.FragmentProfileBinding
 import com.azizapp.test.ui.editpassword.EditPasswordActivity
@@ -27,7 +28,12 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+        // Inflate the layout for this fragment
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
@@ -35,10 +41,9 @@ class ProfileFragment : Fragment() {
         }
 
         with(binding){
-            editProfileViewModel.loadingEnable.observe(viewLifecycleOwner,{
+            editProfileViewModel.loadingEnable.observe(viewLifecycleOwner) {
                 pbLoginInfo.visibility = if (it) View.VISIBLE else View.GONE
-
-            })
+            }
 
 
             ubahProfil.setOnClickListener {
@@ -65,10 +70,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-
-
         editProfileViewModel.onLoad()
-        // Inflate the layout for this fragment
-        return binding.root
     }
 }
