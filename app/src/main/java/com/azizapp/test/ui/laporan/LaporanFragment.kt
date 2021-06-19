@@ -1,65 +1,46 @@
 package com.azizapp.test.ui.laporan
 
-import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
-import android.app.Dialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.system.Os.accept
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.azizapp.test.R
 import com.azizapp.test.databinding.FragmentLaporanBinding
-import com.azizapp.test.model.DataPengaduanMasyarakat
 import com.azizapp.test.utill.Session
 import com.azizapp.test.utill.snackbar
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_laporan.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.ByteArrayOutputStream
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LaporanFragment @Inject constructor(private val typeUser: String) : Fragment() {
 
-    var address = ""
-    var city = ""
+
     var lat: Double = 0.0
     var long: Double = 0.0
-//    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var binding: FragmentLaporanBinding
     private val laporanViewModel: LaporanViewModel by viewModels()
 
-    var imageUri: Uri? = null
-    var sImage: String? = null
+    private var imageUri: Uri? = null
+    private var sImage: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,7 +61,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             val intent = Intent(activity, LaporanActivity::class.java)
             startActivityForResult(intent, 100)
         }
-        laporanViewModel.action.observe(this.viewLifecycleOwner, Observer { action ->
+        laporanViewModel.action.observe(this.viewLifecycleOwner, { action ->
             when (action) {
                 LaporanViewModel.ACTION_SUCCESS -> actionSuccess()
                 LaporanViewModel.ACTION_ERROR -> actionError()
@@ -122,24 +103,34 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+
             val lat = data.getDoubleExtra("LAT", 0.0)
             val long = data.getDoubleExtra("LONG", 0.0)
             editTextNamaJalan.setText(data.getStringExtra("ADDRESS"))
             editTextLokasi.setText(StringBuilder("[$lat,$long]"))
+
         } else if (requestCode == 1 && data != null) {
+
             imageUri = data.data
-            editGambar.setImageURI(imageUri)
-            val bitmap: Bitmap =
+            binding.editGambar.setImageURI(imageUri)
+
+            val bitmap: Bitmap? = if (Build.VERSION.SDK_INT < 28){
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
+            }else{
+                val source = ImageDecoder.createSource(requireActivity().contentResolver, imageUri!!)
+                ImageDecoder.decodeBitmap(source)
+            }
+
             val byteArrayOutputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
 
             val bytes = byteArrayOutputStream.toByteArray()
             sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
         }
     }
 
-    fun pilihLaporan(): String {
+    @SuppressLint("InflateParams")
+    private fun pilihLaporan(): String {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
         val dialog = BottomSheetDialog(requireActivity())
         var jenis = ""
@@ -153,7 +144,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 "Anda melaporkan $jenis", Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
-            tv_laporkan.text = StringBuilder("Laporkan $jenis")
+            binding.tvLaporkan.text = StringBuilder("Laporkan $jenis")
         }
 
         view.titik_banjir.setOnClickListener {
@@ -163,7 +154,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 "Anda melaporkan $jenis", Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
-            tv_laporkan.text = StringBuilder("Laporkan $jenis")
+            binding.tvLaporkan.text = StringBuilder("Laporkan $jenis")
         }
 
         dialog.setOnDismissListener {

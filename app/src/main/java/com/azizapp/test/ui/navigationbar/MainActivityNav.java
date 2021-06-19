@@ -45,54 +45,50 @@ public class MainActivityNav extends AppCompatActivity {
                     .commit();
         }
 
+
         mMainNav.setOnItemSelectedListener(id -> {
-            Fragment fragment = null;
+            fragmentManager = getSupportFragmentManager();
             switch (id) {
                 case R.id.nav_new:
-                    fragment = new LaporanFragment("login");
+                    fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.main_frame, new LaporanFragment("login")
+                            )
+                            .commit();
                     break;
                 case R.id.nav_home:
-                    fragment = new HomeFragment();
+                    replace_fragment(new HomeFragment());
                     break;
                 case R.id.nav_history:
-                    fragment = new RiwayatFragment();
+                    replace_fragment(new RiwayatFragment());
                     break;
                 case R.id.nav_profile:
-                    fragment = new ProfileFragment();
+                    replace_fragment(new ProfileFragment());
                     break;
-            }
-
-            if (fragment != null) {
-                fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .add(R.id.main_frame, fragment)
-                        .commit();
-            } else {
-                Log.e(TAG, "Error in creating fragment");
             }
         });
     }
 
-    private void createFragment(Fragment fragment){
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, fragment)
-                .hide(fragment)
-                .commit();
-    }
-    private void showFragment(Fragment fragment){
-        getSupportFragmentManager().beginTransaction()
-                .show(fragment)
-                .commit();
-    }
-    private void hideFragment(Fragment fragment){
-        getSupportFragmentManager().beginTransaction()
-                .hide(fragment)
-                .commit();
-    }
+    private void replace_fragment(Fragment fragment) {
 
-    private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame, fragment);
-        fragmentTransaction.commit();
+        String tag = fragment.getClass().getSimpleName();
+        FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
+
+        Fragment curFrag = getSupportFragmentManager().getPrimaryNavigationFragment();
+        Fragment cacheFrag = getSupportFragmentManager().findFragmentByTag(tag);
+
+        if (curFrag != null)
+            tr.hide(curFrag);
+
+        if (cacheFrag == null) {
+            tr.add(R.id.main_frame, fragment, tag);
+        } else {
+            tr.show(cacheFrag);
+            fragment = cacheFrag;
+        }
+
+        tr.setPrimaryNavigationFragment(fragment);
+        tr.commit();
+
     }
 }

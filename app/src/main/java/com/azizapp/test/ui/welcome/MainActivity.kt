@@ -15,7 +15,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.azizapp.test.R
 import com.azizapp.test.ui.daftar.DaftarActivity
 import com.azizapp.test.ui.login.LoginActivity
+import com.azizapp.test.ui.navigationbar.MainActivityNav
 import com.azizapp.test.ui.navigationbar.MainActivityNavGuest
+import com.azizapp.test.utill.Session
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.splash.*
 import me.relex.circleindicator.CircleIndicator3
@@ -54,6 +56,10 @@ class MainActivity : AppCompatActivity() {
     var image = intArrayOf(R.raw.smartphone, R.raw.laborer)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (Session.bearer != null){
+            startActivity(Intent(this,MainActivityNav::class.java))
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)
 

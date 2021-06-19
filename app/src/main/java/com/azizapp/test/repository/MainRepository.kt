@@ -3,9 +3,6 @@ package com.azizapp.test.repository
 import com.azizapp.test.api.MasyarakatService
 import com.azizapp.test.model.*
 import com.azizapp.test.utill.Resource
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(

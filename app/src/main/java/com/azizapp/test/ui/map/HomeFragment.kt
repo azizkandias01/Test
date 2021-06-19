@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.azizapp.test.R
 import com.azizapp.test.binding.loadImgFromUrl
-import com.azizapp.test.databinding.FragmentHomeBinding
-import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,7 +21,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
 
 
@@ -32,7 +28,6 @@ import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
 class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    private lateinit var binding : FragmentHomeBinding
     private lateinit var i : View
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
     private var markerList: ArrayList<Marker>? = null
@@ -52,9 +47,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         i = inflater.inflate(R.layout.fragment_home, container, false)
-        binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
         // Inflate the layout for this fragment
         bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet).apply { BottomSheetDialog(requireContext(), R.style.BottomSheetDialog) }
 
@@ -98,7 +91,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         .title(titik.namaJalan)
                         .snippet("${titik.keterangan}|${titik.foto}")
                 )
-                markerList?.add(mark)
+                markerList?.add(mark!!)
             }
             HomeViewModel.listTitikTersumbat.forEach { titik ->
                 val mark = googleMap.addMarker(
@@ -108,7 +101,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         .snippet("${titik.keterangan}|${titik.foto}")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                 )
-                markerListTersumbat?.add(mark)
+                markerListTersumbat?.add(mark!!)
             }
         }
 
@@ -117,10 +110,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         googleMap.setOnMarkerClickListener { marker ->
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-            tvTitle.text = marker.title
-            val keteranganFoto: List<String> = marker.snippet.split("|")
-            tvSubtitle.text = StringBuilder("Keterangan Drainase: ${keteranganFoto[0]}")
-            gambar.loadImgFromUrl(keteranganFoto[1])
+            i.tvTitle.text = marker.title
+            val keteranganFoto : List<String> = marker.snippet!!.split("|")
+            i.tvSubtitle.text = StringBuilder("Keterangan Drainase: ${keteranganFoto[0]}")
+            i.gambar.loadImgFromUrl(keteranganFoto[1])
             true
         }
         HomeViewModel.loadingEnable.observe(viewLifecycleOwner,{

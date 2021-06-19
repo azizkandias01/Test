@@ -70,7 +70,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginSuccess() {
-        startActivity(Intent(this, MainActivityNav::class.java))
-        //SaveSharedPreference.setEmail(this, tvEmail.text.toString())
+        val intent = Intent(this, MainActivityNav::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        finishAffinity()
+        startActivity(intent)
+
     }
 }

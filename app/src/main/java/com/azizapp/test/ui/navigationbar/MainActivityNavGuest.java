@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.azizapp.test.R;
 import com.azizapp.test.ui.laporan.LaporanFragment;
 import com.azizapp.test.ui.map.HomeFragment;
-import com.azizapp.test.ui.navigationbar.MainActivityNav;
 import com.azizapp.test.ui.profile.ProfileFragment;
 import com.azizapp.test.ui.riwayat.RiwayatFragment;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;

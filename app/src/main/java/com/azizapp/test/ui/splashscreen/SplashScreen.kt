@@ -3,9 +3,9 @@ package com.azizapp.test.ui.splashscreen
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.azizapp.test.ui.welcome.MainActivity
 import com.azizapp.test.R
 import com.azizapp.test.ui.navigationbar.MainActivityNav
+import com.azizapp.test.ui.welcome.MainActivity
 import com.azizapp.test.utill.Session
 import kotlinx.android.synthetic.main.splashscreen.*
 
