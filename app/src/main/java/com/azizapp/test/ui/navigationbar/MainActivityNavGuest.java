@@ -22,9 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivityNavGuest extends AppCompatActivity {
     private static final String TAG = MainActivityNav.class.getSimpleName();
     private ChipNavigationBar mMainNav;
-    private HomeFragment homeFragment;
-    private ProfileFragment profileFragment;
-    private RiwayatFragment riwayatFragment;
     private FragmentManager fragmentManager;
 
     @Override

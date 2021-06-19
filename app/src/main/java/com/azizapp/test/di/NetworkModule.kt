@@ -31,12 +31,14 @@ object NetworkModule {
             .addInterceptor(interceptor)
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
             .build()
     } else {
         OkHttpClient
             .Builder()
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
             .build()
     }
 

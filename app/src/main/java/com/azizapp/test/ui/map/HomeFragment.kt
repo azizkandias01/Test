@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.azizapp.test.R
 import com.azizapp.test.binding.loadImgFromUrl
-import com.azizapp.test.databinding.FragmentHomeBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,7 +28,6 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    private lateinit var binding : FragmentHomeBinding
     private lateinit var i : View
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
     private var markerList: ArrayList<Marker>? = null
@@ -72,7 +70,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         .title(titik.namaJalan)
                         .snippet("${titik.keterangan}|${titik.foto}")
                 )
-                markerList?.add(mark)
+                markerList?.add(mark!!)
             }
             HomeViewModel.listTitikTersumbat.forEach { titik ->
                 val mark = googleMap.addMarker(
@@ -82,7 +80,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         .snippet("${titik.keterangan}|${titik.foto}")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                 )
-                markerListTersumbat?.add(mark)
+                markerListTersumbat?.add(mark!!)
             }
         }
 
@@ -105,8 +103,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     fun geoToLatLong(string: String): LatLng {
         val substring = string.substring(34, string.length - 2)
         val latlong: List<String> = substring.split(",")
-        val latLng = LatLng(latlong[1].toDouble(), latlong[0].toDouble())
-        return latLng
+        return LatLng(latlong[1].toDouble(), latlong[0].toDouble())
     }
 }
 

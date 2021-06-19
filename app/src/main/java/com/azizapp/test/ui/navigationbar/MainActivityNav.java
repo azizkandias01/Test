@@ -23,12 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivityNav extends AppCompatActivity {
-    private static final String TAG = MainActivityNav.class.getSimpleName();
-    private HomeFragment homeFragment;
-    private ProfileFragment profileFragment;
-    private RiwayatFragment riwayatFragment;
     private FragmentManager fragmentManager;
-    private EditText editText;
 
 
     @Override

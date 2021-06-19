@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 
-@BindingAdapter("app:loadImgFromUrl")
+@BindingAdapter("loadImgFromUrl")
 fun ImageView.loadImgFromUrl(url: String) {
     val circularProgressDrawable = CircularProgressDrawable(context)
     circularProgressDrawable.strokeWidth = 5f

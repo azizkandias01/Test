@@ -9,7 +9,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.azizapp.test"
@@ -124,6 +124,5 @@ allprojects {
         maven { url "https://jitpack.io" }
         mavenCentral()
         google()
-        jcenter()
     }
 }

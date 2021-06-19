@@ -6,13 +6,11 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
-
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    android:layout_centerHorizontal="true">
+    android:layout_centerHorizontal="true"
+    android:background="@color/white"
+    android:gravity="center">
+
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/ivImage"
@@ -28,12 +26,11 @@
         android:layout_height="wrap_content"
         android:textColor="@color/textColorSecondary"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:text="Splash 1"
         android:fontFamily="@font/poppins_medium"
         android:textAlignment="center"
         android:layout_below="@id/ivImage"
         tools:ignore="MissingConstraints" />
 
-</RelativeLayout>
 </RelativeLayout>

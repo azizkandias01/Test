@@ -23,28 +23,6 @@ data class Data(
     var updatedAt: String?
 )
 
-fun main() {
-//    var test ="{\"type": "Point", "coordinates": [101.439627, 0.547225]}"
-//    //print("{\"type\": \"Point\", \"coordinates\": ".length)
-//    print(geoToLatLong(test))
-}
-
 fun geoToString(string: String): String {
-    val substring = string.substring(34, string.length - 2)
-    return substring
-}
-
-fun stringToLatLong(string: String): LatLng {
-    val result = geoToString(string)
-    val latlong: List<String> = result.split(", ")
-    val lat = latlong[0].toDouble()
-    val long = latlong[1].toDouble()
-    return LatLng(lat, long)
-}
-
-fun geoToLatLong(string: String): LatLng {
-    val substring = string.substring(34, string.length - 2)
-    val latlong: List<String> = substring.split(",")
-    val latLng = LatLng(latlong[1].toDouble(), latlong[0].toDouble())
-    return latLng
+    return string.substring(34, string.length - 2)
 }

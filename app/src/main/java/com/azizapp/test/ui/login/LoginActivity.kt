@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
             viewModel = loginViewModel
         }
 
-        loginViewModel.action.observe(this, Observer { action ->
+        loginViewModel.action.observe(this, { action ->
             when(action) {
                 LoginViewModel.ACTION_LOGIN_SUCCESS -> loginSuccess()
                 LoginViewModel.ACTION_LOGIN_FAILED -> loginFailed()

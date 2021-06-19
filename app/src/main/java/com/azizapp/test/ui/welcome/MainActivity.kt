@@ -42,18 +42,18 @@ class MainActivity : AppCompatActivity() {
                 val location = locationList.last()
                 Toast.makeText(
                     this@MainActivity,
-                    "Got Location: " + location.toString(),
+                    "Got Location: $location",
                     Toast.LENGTH_LONG)
                     .show()
             }
         }
     }
 
-    var desc = arrayOf(
+    private var desc = arrayOf(
         "Laporkan kerusakan jaringan drainase manapun dengan mudah",
         "Ditangani langsung oleh Pemerintah Kota Pekanbaru"
     )
-    var image = intArrayOf(R.raw.smartphone, R.raw.laborer)
+    private var image = intArrayOf(R.raw.smartphone, R.raw.laborer)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Session.bearer != null){

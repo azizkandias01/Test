@@ -63,7 +63,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             val intent = Intent(activity, LaporanActivity::class.java)
             startActivityForResult(intent, 100)
         }
-        laporanViewModel.action.observe(this.viewLifecycleOwner, Observer { action ->
+        laporanViewModel.action.observe(this.viewLifecycleOwner, { action ->
             when (action) {
                 LaporanViewModel.ACTION_SUCCESS -> actionSuccess()
                 LaporanViewModel.ACTION_ERROR -> actionError()

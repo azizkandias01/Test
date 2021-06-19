@@ -25,7 +25,7 @@ class EditPasswordActivity : AppCompatActivity() {
             lifecycleOwner = this@EditPasswordActivity
             viewModelEditPassword = editPasswordViewModel
         }
-        editPasswordViewModel.action.observe(this, Observer { action ->
+        editPasswordViewModel.action.observe(this, { action ->
             when (action) {
                 EditPasswordViewModel.ACTION_EDIT_SUCCESS -> editSuccess()
                 EditPasswordViewModel.ACTION_EDIT_ERROR -> editError()

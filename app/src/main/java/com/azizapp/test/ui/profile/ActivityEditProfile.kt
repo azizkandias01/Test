@@ -30,7 +30,7 @@ class ActivityEditProfile : AppCompatActivity() {
         }
         editProfileViewModel.onLoad()
 
-        editProfileViewModel.action.observe(this, Observer { action ->
+        editProfileViewModel.action.observe(this, { action ->
             when (action) {
                 EditPasswordViewModel.ACTION_EDIT_SUCCESS -> editSuccess()
                 EditPasswordViewModel.ACTION_EDIT_ERROR -> editError()

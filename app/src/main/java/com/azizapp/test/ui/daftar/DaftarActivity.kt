@@ -30,7 +30,7 @@ class DaftarActivity : AppCompatActivity() {
             lifecycleOwner = this@DaftarActivity
             viewModelDaftar = daftarViewModel
         }
-        daftarViewModel.action.observe(this, Observer { action ->
+        daftarViewModel.action.observe(this, { action ->
             when (action) {
                 DaftarViewModel.ACTION_DAFTAR_SUCCESS -> {
                     Snackbar.make(binding.root, "Akun Anda Berhasil Dibuat!", Snackbar.LENGTH_SHORT)

@@ -4,7 +4,7 @@
     android:id="@+id/succesPageLanding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF6F6">
+    android:background="@color/background">
 
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -23,6 +23,7 @@
         android:id="@+id/shapeableImageView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/white"
         android:src="@drawable/iconmaterial_smile"
         app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView2"
         app:layout_constraintEnd_toEndOf="@+id/shapeableImageView2"
@@ -43,7 +44,7 @@
         app:layout_constraintStart_toStartOf="@+id/shapeableImageView2"
         app:layout_constraintTop_toTopOf="@+id/shapeableImageView2"
         app:layout_constraintVertical_bias="0.681"
-        app:layout_constraintWidth_percent=".50"></com.google.android.material.imageview.ShapeableImageView>
+        app:layout_constraintWidth_percent=".50" />
 
     <TextView
         android:id="@+id/btnKembali"
@@ -52,6 +53,7 @@
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
         android:text="Kembali"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView4"
         app:layout_constraintEnd_toEndOf="@+id/shapeableImageView4"
         app:layout_constraintStart_toStartOf="@+id/shapeableImageView4"
@@ -62,6 +64,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
+        android:background="@color/white"
         android:text="Terima kasih atas kontribusi Anda"
         android:textColor="@color/secondary"
         android:textSize="25sp"
@@ -78,6 +81,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
         android:gravity="center"
+        android:background="@color/white"
         android:text="akan kami proses secepatnya"
         android:textColor="@color/black"
         android:textSize="15sp"
