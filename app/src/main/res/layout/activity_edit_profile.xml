@@ -42,30 +42,20 @@
                     app:layout_constraintHeight_percent=".28"
                     tools:ignore="MissingConstraints">
 
-<!--                    <ImageView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:scaleType="centerCrop"-->
-<!--                        android:src="@drawable/ic_header_profile"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+                    <ImageView
+                        android:id="@+id/ivFotoProfil"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_user1"
+                        app:layout_constraintBottom_toBottomOf="@id/header"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="MissingConstraints" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ImageView
-                    android:id="@+id/ivFotoProfil"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_user1"
-                    app:layout_constraintBottom_toBottomOf="@id/header"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="MissingConstraints" />
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout"
@@ -88,20 +78,30 @@
                 </RelativeLayout>
 
 
-                <com.zigis.materialtextfield.MaterialTextField
-                    android:id="@+id/nama"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/material_et_nama"
                     android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="16dp"
-                    android:hint="Nama Lengkap"
-                    android:text="@={viewModeEditProfile.nama}"
-                    android:textColor="@color/textColorSecondary"
-                    app:activeHintColor="@color/primaryVariant"
-                    app:activeUnderlineColor="@color/primaryVariant"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColorHint="@color/textColorSecondary"
+                    android:textSize="16sp"
+                    app:hintTextColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-                    app:layout_constraintWidth_percent=".85" />
+                    app:layout_constraintWidth_percent=".9">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nama"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/grey"
+                        android:ems="10"
+                        android:hint="@string/name"
+                        android:inputType="textPersonName"
+                        android:text="@={viewModeEditProfile.nama}"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout2"
@@ -110,7 +110,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/grey"
                     app:layout_constraintHeight_percent=".07"
-                    app:layout_constraintTop_toBottomOf="@+id/nama">
+                    app:layout_constraintTop_toBottomOf="@+id/material_et_nama">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -133,50 +133,80 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
 
-                    <com.zigis.materialtextfield.MaterialTextField
-                        android:id="@+id/noHp"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/material_et_no_hp"
                         android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="16dp"
-                        android:hint="Nomor Handphone"
-                        android:text="@={viewModeEditProfile.noHp}"
-                        android:textColor="@color/textColorSecondary"
-                        app:activeHintColor="@color/primaryVariant"
-                        app:activeUnderlineColor="@color/primaryVariant"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColorHint="@color/textColorSecondary"
+                        android:textSize="16sp"
+                        app:hintTextColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/constraintLayout"
-                        app:layout_constraintWidth_percent=".85" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent=".9">
 
-                    <com.zigis.materialtextfield.MaterialTextField
-                        android:id="@+id/email"
-                        android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="16dp"
-                        android:hint="Email"
-                        android:text="@={viewModeEditProfile.emailUser}"
-                        android:textColor="@color/textColorSecondary"
-                        app:activeHintColor="@color/primaryVariant"
-                        app:activeUnderlineColor="@color/primaryVariant"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/noHp"
-                        app:layout_constraintWidth_percent=".85" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/noHp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/grey"
+                            android:ems="10"
+                            android:hint="@string/nomor_hp"
+                            android:inputType="textPhonetic"
+                            android:text="@={viewModeEditProfile.noHp}"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.zigis.materialtextfield.MaterialTextField
-                        android:id="@+id/tempatLahir"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/material_et_email"
                         android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="16dp"
-                        android:hint="Alamat"
-                        android:text="@={viewModeEditProfile.alamat}"
-                        android:textColor="@color/textColorSecondary"
-                        app:activeHintColor="@color/primaryVariant"
-                        app:activeUnderlineColor="@color/primaryVariant"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColorHint="@color/textColorSecondary"
+                        android:textSize="16sp"
+                        app:hintTextColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/email"
-                        app:layout_constraintWidth_percent=".85" />
+                        app:layout_constraintTop_toBottomOf="@+id/material_et_no_hp"
+                        app:layout_constraintWidth_percent=".9">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/email"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/grey"
+                            android:ems="10"
+                            android:hint="@string/email"
+                            android:inputType="textEmailAddress"
+                            android:text="@={viewModeEditProfile.emailUser}"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/material_et_tempat_lahir"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColorHint="@color/textColorSecondary"
+                        android:textSize="16sp"
+                        app:hintTextColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/material_et_email"
+                        app:layout_constraintWidth_percent=".9">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tempatLahir"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/grey"
+                            android:ems="10"
+                            android:hint="@string/alamat"
+                            android:inputType="text"
+                            android:text="@={viewModeEditProfile.alamat}"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <ProgressBar
                         android:id="@+id/pb_login_loading"
@@ -195,18 +225,16 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-
-
         <Button
             android:id="@+id/buttonEdit"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_weight="0"
-            android:background="#ffc736"
+            android:background="@color/header"
             android:fontFamily="@font/poppins_bold"
             android:onClick="@{()->viewModeEditProfile.saveChanges()}"
             android:text="Simpan"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

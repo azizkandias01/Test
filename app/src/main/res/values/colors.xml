@@ -31,5 +31,6 @@
     <color name="textGrey">#868A8F</color>
     <color name="header">#ffc736</color>
     <color name="error">#F5365C</color>
+    <color name="danger">#bb2124</color>
 
 </resources>

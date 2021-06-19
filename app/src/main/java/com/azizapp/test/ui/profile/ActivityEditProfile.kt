@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.azizapp.test.R
-import com.azizapp.test.databinding.FragmentEditProfileBinding
+import com.azizapp.test.databinding.ActivityEditProfileBinding
 import com.azizapp.test.ui.editpassword.EditPasswordViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,13 +16,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ActivityEditProfile : AppCompatActivity() {
 
-    lateinit var binding: FragmentEditProfileBinding
+    lateinit var binding: ActivityEditProfileBinding
     private val editProfileViewModel: EditProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_edit_profile)
-        binding = DataBindingUtil.setContentView(this, R.layout.fragment_edit_profile)
+        setContentView(R.layout.activity_edit_profile)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile)
 
         binding.apply {
             lifecycleOwner = this@ActivityEditProfile

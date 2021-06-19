@@ -10,7 +10,7 @@ import com.azizapp.test.databinding.ActivityDetilRiwayatBinding
 import com.azizapp.test.model.Pengaduan
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_detil_riwayat.*
-import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.*
+import kotlinx.android.synthetic.main.bottom_sheet_detail.*
 
 @AndroidEntryPoint
 class DetilRiwayat : AppCompatActivity() {
@@ -35,11 +35,11 @@ class DetilRiwayat : AppCompatActivity() {
             data = item
         }
 
-        val ibBack: ImageButton = findViewById(R.id.ib_back)
+        //val ibBack: ImageButton = findViewById(R.id.ib_back)
 
-        ibBack.setOnClickListener{
-            finish()
-        }
+//        ibBack.setOnClickListener{
+//            finish()
+//        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

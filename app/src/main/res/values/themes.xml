@@ -13,6 +13,17 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/PoppinsTextViewStyle.</item>
+        <item name="android:editTextStyle">@style/PoppinsTextViewStyle.</item>
+        <item name="buttonStyle">@style/PoppinsButtonStyle.</item>
+    </style>
+
+    <style name="PoppinsTextViewStyle." parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="PoppinsButtonStyle." parent="android:Widget.Holo.Button">
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="TextView.Bold" parent="Widget.MaterialComponents.TextView">

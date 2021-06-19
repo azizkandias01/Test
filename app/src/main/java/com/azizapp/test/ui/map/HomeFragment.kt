@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import androidx.lifecycle.observe
 import com.azizapp.test.R
 import com.azizapp.test.binding.loadImgFromUrl
-import com.azizapp.test.databinding.FragmentHomeBinding
-import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,16 +22,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.*
-import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
+import kotlinx.android.synthetic.main.bottom_sheet_detail.*
+import kotlinx.android.synthetic.main.bottom_sheet_detail.view.*
 
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    private lateinit var binding : FragmentHomeBinding
-    private lateinit var i : View
+    private lateinit var i: View
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
     private var markerList: ArrayList<Marker>? = null
     var markerListTersumbat: ArrayList<Marker>? = null
@@ -45,7 +42,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         mapView2.getMapAsync(this)
         HomeViewModel.onLoad()
-       HomeViewModel.titikTersumbat()
+        HomeViewModel.titikTersumbat()
     }
 
     override fun onCreateView(
@@ -54,32 +51,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     ): View {
 
         i = inflater.inflate(R.layout.fragment_home, container, false)
-        binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
         // Inflate the layout for this fragment
-        bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet).apply { BottomSheetDialog(requireContext(), R.style.BottomSheetDialog) }
+        bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet)
+            .apply { BottomSheetDialog(requireContext(), R.style.BottomSheetDialog) }
 
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-                    }
-                    BottomSheetBehavior.STATE_EXPANDED -> {
-                    }
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                    }
-                    BottomSheetBehavior.STATE_DRAGGING -> {
-                    }
-                    BottomSheetBehavior.STATE_SETTLING -> {
-                    }
-                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-                    }
-                }
-            }
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            }
-        })
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         return i
@@ -123,16 +98,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             gambar.loadImgFromUrl(keteranganFoto[1])
             true
         }
-        HomeViewModel.loadingEnable.observe(viewLifecycleOwner,{
-            i.pb_load_titik.visibility = if(it) View.VISIBLE else View.GONE
-        })
+        HomeViewModel.loadingEnable.observe(viewLifecycleOwner) {
+            i.pb_load_titik.visibility = if (it) View.VISIBLE else View.GONE
+        }
     }
 
-    fun geoToLatLong(string: String): LatLng {
+    private fun geoToLatLong(string: String): LatLng {
         val substring = string.substring(34, string.length - 2)
         val latlong: List<String> = substring.split(",")
-        val latLng = LatLng(latlong[1].toDouble(), latlong[0].toDouble())
-        return latLng
+        return LatLng(latlong[1].toDouble(), latlong[0].toDouble())
     }
 }
 
