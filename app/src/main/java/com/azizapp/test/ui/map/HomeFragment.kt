@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.azizapp.test.R
 import com.azizapp.test.binding.loadImgFromUrl
 import com.azizapp.test.databinding.FragmentHomeBinding
-import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -22,10 +20,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.bottom_sheet_detail.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.*
-import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
 
 
 @AndroidEntryPoint

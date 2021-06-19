@@ -59,7 +59,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             lifecycleOwner = viewLifecycleOwner
             viewModelLaporan = laporanViewModel
         }
-        binding.editTextNamaJalan.setOnClickListener {
+        binding.tvNamaJalan.setOnClickListener {
             val intent = Intent(activity, LaporanActivity::class.java)
             startActivityForResult(intent, 100)
         }
@@ -71,7 +71,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             }
 
         })
-        binding.editGambar.setOnClickListener {
+        binding.tvPilihDariGaleri.setOnClickListener {
             Intent(Intent.ACTION_PICK).also {
                 it.type = "image/*"
                 val mimeTypes = arrayOf("image/jpeg", "image/png")
@@ -112,7 +112,9 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
         } else if (requestCode == 1 && data != null) {
             imageUri = data.data
             binding.editGambar.setImageURI(imageUri)
-
+            binding.tvPilihDariGaleri.visibility = View.GONE
+           binding.imageView2.visibility = View.GONE
+           binding.editGambar.visibility = View.VISIBLE
             val bitmap: Bitmap? = if (Build.VERSION.SDK_INT < 28){
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
             }else{
@@ -121,7 +123,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             }
 
             val byteArrayOutputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
 
             val bytes = byteArrayOutputStream.toByteArray()
             sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
@@ -208,8 +210,8 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             return
         }
 
-        val geometry = "{\"type\": \"Point\", \"coordinates\": ${editTextLokasi.text}}"
-        val namaJalan = editTextNamaJalan.text.toString()
+        val geometry = "{\"type\": \"Point\", \"coordinates\": ${binding.tvKoordinat.text}}"
+        val namaJalan = binding.tvNamaJalan.text.toString()
         val image = sImage
         val tipePengaduan = tv_laporkan.text.toString().substring(15)
         val deskripsi = editTextDeskripsi.text.toString()
