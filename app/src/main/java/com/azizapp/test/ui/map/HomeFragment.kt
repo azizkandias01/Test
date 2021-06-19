@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.azizapp.test.R
+import com.azizapp.test.binding.loadImgFromUrl
+import com.azizapp.test.databinding.FragmentHomeBinding
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -21,6 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
 
@@ -29,12 +32,14 @@ import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
 class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var binding : FragmentHomeBinding
+    private lateinit var i : View
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
     private var markerList: ArrayList<Marker>? = null
     var markerListTersumbat: ArrayList<Marker>? = null
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mapView2.onCreate(savedInstanceState)
         mapView2.onResume()
 
@@ -46,9 +51,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val i = inflater.inflate(R.layout.fragment_home, container, false)
+        i = inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
         // Inflate the layout for this fragment
         bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet).apply { BottomSheetDialog(requireContext(), R.style.BottomSheetDialog) }
 
@@ -66,6 +72,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     }
                     BottomSheetBehavior.STATE_SETTLING -> {
                     }
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+                    }
                 }
             }
 
@@ -73,6 +81,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }
         })
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
         return i
     }
 
@@ -107,27 +116,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f))
 
         googleMap.setOnMarkerClickListener { marker ->
-            val circularProgressDrawable = CircularProgressDrawable(requireContext())
-            circularProgressDrawable.strokeWidth = 5f
-            circularProgressDrawable.centerRadius = 30f
-            circularProgressDrawable.start()
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
             tvTitle.text = marker.title
             val keteranganFoto: List<String> = marker.snippet.split("|")
             tvSubtitle.text = StringBuilder("Keterangan Drainase: ${keteranganFoto[0]}")
-            Glide.with(this)
-                .load("https://gis-drainase.pocari.id/storage/app/public/images/${keteranganFoto[1]}")
-                .placeholder(circularProgressDrawable)
-                .into(gambar)
+            gambar.loadImgFromUrl(keteranganFoto[1])
             true
         }
-//        HomeViewModel.loadingEnable.observe(viewLifecycleOwner,{
-//            if (it){
-//                binding.pbLoadTitik.visibility = View.VISIBLE
-//            }else{
-//                binding.pbLoadTitik.visibility = View.GONE
-//            }
-//        })
+        HomeViewModel.loadingEnable.observe(viewLifecycleOwner,{
+            i.pb_load_titik.visibility = if(it) View.VISIBLE else View.GONE
+        })
     }
 
     fun geoToLatLong(string: String): LatLng {

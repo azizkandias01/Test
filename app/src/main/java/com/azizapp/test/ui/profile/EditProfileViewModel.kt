@@ -32,6 +32,7 @@ class EditProfileViewModel @Inject constructor(
     val bearer: String = "Bearer " + com.azizapp.test.utill.Session.bearer
 
     fun onLoad() {
+        loadingEnable.value = true
         viewModelScope.launch {
             when (val response = bearer.let { repository.getMasyarakatData(it) }) {
                 is Resource.Success -> {
@@ -39,6 +40,7 @@ class EditProfileViewModel @Inject constructor(
                     noHp.postValue(response.data?.noHp)
                     emailUser.postValue(response.data?.email)
                     alamat.postValue(response.data?.alamat)
+                    loadingEnable.postValue(false)
                 }
                 is Resource.Error -> {
                     loadingEnable.postValue(false)

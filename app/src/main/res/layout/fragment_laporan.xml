@@ -166,28 +166,19 @@
 
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/loadingBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                    <ProgressBar
+                        android:id="@+id/pb_login_loading"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:translationZ="100dp"
+                        android:visibility="@{viewModelLaporan.loadingEnable ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/buttonLapor"
-                        tools:ignore="MissingConstraints">
-
-                        <ProgressBar
-                            android:id="@+id/pb_login_loading"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_gravity="center"
-                            android:visibility="@{viewModelLaporan.loadingEnable ? View.VISIBLE : View.GONE}"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            tools:ignore="NotSibling"
-                            tools:visibility="gone" />
-
-                    </RelativeLayout>
-
+                        app:layout_constraintTop_toBottomOf="@+id/foto"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:visibility="visible" />
                     <Button
                         android:id="@+id/buttonLapor"
                         android:layout_width="match_parent"
@@ -195,7 +186,7 @@
                         android:layout_marginHorizontal="@dimen/dimen_16"
                         android:layout_marginTop="@dimen/dimen_16"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Lapor"
+                        android:text="@string/lapor"
                         android:textAllCaps="true"
                         android:textColor="@color/textPrimary"
                         android:textSize="18sp"

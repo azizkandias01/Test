@@ -31,9 +31,9 @@ fun View.snackbar(message: String) {
         }
     }.show()
 }
-
-@BindingAdapter("app:loadImgFromUrl")
-fun ImageView.loadImgFromUrl(url: String) {
-    val fullUrl = "https://gis-drainase.pocari.id/storage/app/public/images/$url"
-    Glide.with(this.context).load(fullUrl).into(this)
-}
+//
+//@BindingAdapter("app:loadImgFromUrl")
+//fun ImageView.loadImgFromUrl(url: String) {
+//    val fullUrl = "https://gis-drainase.pocari.id/storage/app/public/images/$url"
+//    Glide.with(this.context).load(fullUrl).into(this)
+//}

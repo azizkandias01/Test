@@ -41,7 +41,7 @@ class RiwayatFragment : Fragment() {
             viewModelRiwayat = riwayatViewModel
         }
 
-        riwayatViewModel.action.observe(viewLifecycleOwner, Observer { action ->
+        riwayatViewModel.action.observe(viewLifecycleOwner, { action ->
             when (action) {
                 RiwayatViewModel.ACTION_RIWAYAT_FETCHED -> listItemUpdate()
                 RiwayatViewModel.ACTION_RIWAYAT_ONCLICK -> listItemOnClick()
@@ -72,5 +72,10 @@ class RiwayatFragment : Fragment() {
     private fun listItemUpdate() {
         riwayatAdapter.items = riwayatViewModel.listPengaduan
         riwayatAdapter.notifyDataSetChanged()
+
+        riwayatViewModel.loadingEnable.observe(viewLifecycleOwner,{
+            dataBinding.pbLoadRiwayat.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
     }
 }

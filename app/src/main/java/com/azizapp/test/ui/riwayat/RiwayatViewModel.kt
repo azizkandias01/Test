@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.azizapp.test.model.Pengaduan
 import com.azizapp.test.repository.MainRepository
+import com.azizapp.test.ui.login.LoginViewModel
 import com.azizapp.test.utill.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,11 +24,13 @@ class RiwayatViewModel @Inject constructor(
 
     companion object {
         const val ACTION_RIWAYAT_FETCHED = "RIWAYAT_FETCHED"
+        const val ACTION_RIWAYAT_ERROR = "RIWAYAT_ERROR"
         const val ACTION_RIWAYAT_ONCLICK = "RIWAYAT_CLICKED"
     }
 
     fun onLoad() {
-        val bearer: String? = "Bearer " + com.azizapp.test.utill.Session.bearer
+        loadingEnable.value = true
+        val bearer: String = "Bearer " + com.azizapp.test.utill.Session.bearer
         viewModelScope.launch {
             when (val response = bearer?.let { repository.getPengaduanMasyarakat(it) }) {
                 is Resource.Success -> {
@@ -35,10 +38,12 @@ class RiwayatViewModel @Inject constructor(
                         listPengaduan.add(it)
                     }
                     action.postValue(ACTION_RIWAYAT_FETCHED)
+                    loadingEnable.postValue(false)
                 }
                 is Resource.Error -> {
                     loadingEnable.postValue(false)
-                    // action.postValue(LoginViewModel.ACTION_LOGIN_ERROR)
+                    action.postValue(ACTION_RIWAYAT_ERROR)
+                    loadingEnable.postValue(false)
                 }
             }
         }

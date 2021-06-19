@@ -20,11 +20,6 @@
         android:theme="@style/Theme.Test"
         android:usesCleartextTraffic="true">
 
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-
         <activity android:name=".ui.navigationbar.MainActivityNav" />
         <activity android:name=".ui.daftar.DaftarActivity" />
         <activity android:name=".ui.login.LoginActivity" />

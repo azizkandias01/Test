@@ -115,19 +115,6 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             .show()
     }
 
-    private fun getAddress(latitude : Double, longitude : Double){
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        val addresses: MutableList<Address>? =
-            geocoder.getFromLocation(latitude, longitude, 1)
-        address = addresses?.get(0)?.getAddressLine(0).toString()
-        city = addresses?.get(0)?.locality.toString()
-        lat = latitude
-        long = longitude
-
-        editTextNamaJalan.setText(address)
-        editTextLokasi.setText("[${lat},${long}]")
-    }
-
     private fun actionSuccess() {
         val intent = Intent(activity, SuccessPage::class.java)
         startActivity(intent)

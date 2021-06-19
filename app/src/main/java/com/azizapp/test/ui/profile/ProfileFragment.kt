@@ -36,6 +36,12 @@ class ProfileFragment : Fragment() {
         }
 
         with(binding){
+            editProfileViewModel.loadingEnable.observe(viewLifecycleOwner,{
+                pbLoginInfo.visibility = if (it) View.VISIBLE else View.GONE
+
+            })
+
+
             ubahProfil.setOnClickListener {
                 val intent = Intent(activity, ActivityEditProfile::class.java)
                 startActivity(intent)

@@ -65,7 +65,7 @@ public class MainActivityNav extends AppCompatActivity {
             if (fragment != null) {
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.main_frame, fragment)
+                        .add(R.id.main_frame, fragment)
                         .commit();
             } else {
                 Log.e(TAG, "Error in creating fragment");
@@ -73,6 +73,22 @@ public class MainActivityNav extends AppCompatActivity {
         });
     }
 
+    private void createFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.container, fragment)
+                .hide(fragment)
+                .commit();
+    }
+    private void showFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction()
+                .show(fragment)
+                .commit();
+    }
+    private void hideFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction()
+                .hide(fragment)
+                .commit();
+    }
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
