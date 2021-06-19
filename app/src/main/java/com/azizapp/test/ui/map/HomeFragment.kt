@@ -4,24 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.azizapp.test.CustomInfoWindowAdapter
 import com.azizapp.test.R
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.*
 import kotlinx.android.synthetic.main.layout_persistent_bottom_sheet.view.*
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), OnMapReadyCallback {
@@ -48,7 +51,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         val i = inflater.inflate(R.layout.fragment_home, container, false)
         // Inflate the layout for this fragment
-        bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet)
+        bottomSheetBehavior = BottomSheetBehavior.from(i.bottomsheet).apply { BottomSheetDialog(requireContext(), R.style.BottomSheetDialog) }
 
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
@@ -107,15 +110,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f))
 
         googleMap.setOnMarkerClickListener { marker ->
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            pb_image_bottom_sheet.isVisible = true
+            val circularProgressDrawable = CircularProgressDrawable(requireContext())
+            circularProgressDrawable.strokeWidth = 5f
+            circularProgressDrawable.centerRadius = 30f
+            circularProgressDrawable.start()
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             tvTitle.text = marker.title
             val keteranganFoto: List<String> = marker.snippet.split("|")
-            tvSubtitle.text = "Keterangan Drainase: ${keteranganFoto[0]}"
+            tvSubtitle.text = StringBuilder("Keterangan Drainase: ${keteranganFoto[0]}")
             Glide.with(this)
                 .load("https://gis-drainase.pocari.id/storage/app/public/images/${keteranganFoto[1]}")
+                .placeholder(circularProgressDrawable)
                 .into(gambar)
-            pb_image_bottom_sheet.isGone = true
             true
         }
     }

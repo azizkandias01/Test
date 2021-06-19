@@ -26,50 +26,75 @@
 
     </data>
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/rl_klik"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_16"
-        android:background="@drawable/shape_rounded_orange"
+        android:backgroundTint="@color/orange"
         android:elevation="3dp"
-        android:onClick="@{()->viewModelRiwayat.itemOnClick(position)}">
+        android:onClick="@{()->viewModelRiwayat.itemOnClick(position)}"
+        app:cardCornerRadius="8dp">
+        <!--        android:background="@drawable/shape_rounded_orange"-->
 
-        <ImageView
-            android:id="@+id/image_pin"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_centerVertical="true"
-            android:layout_marginHorizontal="6dp"
-            android:rotation="30"
-            app:srcCompat="@drawable/ic_pin" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvLokasi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:layout_toRightOf="@id/image_pin"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@={data.namaJalan}"
-            android:textColor="@color/white"
-            android:textSize="11sp" />
+            <ImageView
+                android:id="@+id/image_pin"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="6dp"
+                android:rotation="30"
+                app:srcCompat="@drawable/ic_pin" />
 
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvLokasi"
-            android:layout_marginHorizontal="6dp"
-            android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@id/image_pin"
-            android:background="@drawable/shape_rounded_white"
-            android:fontFamily="@font/poppins_bold"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="2dp"
-            android:text="@={data.statusPengaduan}"
-            android:textColor="@color/orange"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvLokasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginHorizontal="6dp"
+                android:layout_toEndOf="@id/image_pin"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@={data.namaJalan}"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:ellipsize="end"
+                android:maxLines="1"/>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_jenis_pengaduan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:layout_toEndOf="@id/image_pin"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@={data.tipePengaduan}"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_below="@id/tvLokasi"/>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_jenis_pengaduan"
+                android:layout_marginHorizontal="6dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@id/image_pin"
+                android:background="@drawable/shape_rounded_white"
+                android:fontFamily="@font/poppins_bold"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="2dp"
+                android:setTextColorFromStatus="@{data.statusPengaduan}"
+                android:text="@={data.statusPengaduan}"
+                android:textColor="@color/orange"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

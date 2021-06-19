@@ -29,38 +29,36 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
 
-
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModeEditProfile = editProfileViewModel
         }
+        editProfileViewModel.onLoad()
+        // Inflate the layout for this fragment
+        return binding.root
+    }
 
-        val ubahProfil : RelativeLayout = binding.root.findViewById(R.id.ubahProfil)
-        val gantiPassword : RelativeLayout = binding.root.findViewById(R.id.ubahPassword)
-        val keluar:RelativeLayout = binding.root.findViewById(R.id.keluar)
-        val tentang_kami:RelativeLayout = binding.root.findViewById(R.id.tentangKami)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        ubahProfil.setOnClickListener {
+        binding.ubahProfil.setOnClickListener {
             val intent = Intent(activity, ActivityEditProfile::class.java)
             startActivity(intent)
         }
 
-        gantiPassword.setOnClickListener {
+        binding.ubahPassword.setOnClickListener {
             val intent = Intent(activity, EditPasswordActivity::class.java)
             startActivity(intent)
         }
-        keluar.setOnClickListener{
+        binding.keluar.setOnClickListener{
             Session.bearer = ""
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
         }
 
-        tentang_kami.setOnClickListener {
+        binding.tentangKami.setOnClickListener {
             val intent = Intent(activity, ActivityTentangKami::class.java)
             startActivity(intent)
         }
-        editProfileViewModel.onLoad()
-        // Inflate the layout for this fragment
-        return binding.root
     }
 }

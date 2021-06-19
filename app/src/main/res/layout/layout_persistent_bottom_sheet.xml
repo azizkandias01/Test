@@ -4,58 +4,70 @@
     android:id="@+id/bottomsheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_gravity="center"
+    android:layout_marginBottom="-16dp"
     app:behavior_hideable="true"
-    app:behavior_peekHeight="32dp"
+    android:background="@drawable/shape_rounded_top_white"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvTitle"
-        android:layout_width="@dimen/dimen_0"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_16"
-        android:layout_marginEnd="@dimen/dimen_16"
-        android:background="@color/primaryVariant"
-        android:text="@string/tv_title_bottomsheet"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_size_24"
-        app:layout_constraintBottom_toTopOf="@id/rv_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <View
+            android:id="@+id/view"
+            android:layout_width="28dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:background="@drawable/shape_rounded_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/rv_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_16"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/dimen_16"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/tv_title_bottomsheet"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/rv_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view" />
 
-        <ProgressBar
-            android:id="@+id/pb_image_bottom_sheet"
-            android:layout_width="@dimen/dimen_60"
-            android:layout_height="@dimen/dimen_60"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/gambar"
+        <RelativeLayout
+            android:id="@+id/rv_image"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:scaleType="centerCrop" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvSubtitle"
-        android:layout_width="@dimen/dimen_0"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_16"
-        android:text="@string/tv_description_bottomsheet"
-        android:textColor="@color/textColorSecondary"
-        android:textSize="@dimen/font_size_16"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_image" />
+            <!--            <ProgressBar-->
+            <!--                android:id="@+id/pb_image_bottom_sheet"-->
+            <!--                android:layout_width="@dimen/dimen_60"-->
+            <!--                android:layout_height="@dimen/dimen_60"-->
+            <!--                android:layout_centerInParent="true"-->
+            <!--                android:visibility="gone" />-->
+
+            <ImageView
+                android:id="@+id/gambar"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:scaleType="centerCrop" />
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_16"
+            android:text="@string/tv_description_bottomsheet"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/font_size_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,6 +45,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.lang.StringBuilder
 import java.util.*
 import javax.inject.Inject
 
@@ -55,22 +56,23 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
     var city = "";
     var lat: Double = 0.0
     var long: Double = 0.0
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var binding: FragmentLaporanBinding
     private val laporanViewModel: LaporanViewModel by viewModels()
 
     var imageUri: Uri? = null
     var sImage: String? = null
-    var sudah: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //openAlertDialog()
-        sudah = pilihLaporan()
-
+        pilihLaporan()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_laporan, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModelLaporan = laporanViewModel
@@ -101,62 +103,17 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 "anonim" -> uploadImageAnonym()
             }
         }
-
-        fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireContext())
-
-        binding.getLocation.setOnClickListener() {
-            fetchLocation()
-        }
-
-        return binding.root
     }
 
     private fun openDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.pilih_jenis_laporan))
             .setMessage(resources.getString(R.string.dialog_content))
-            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+            .setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
                 dialog.dismiss()
                 pilihLaporan()
             }
             .show()
-    private fun fetchLocation() {
-        val task = fusedLocationProviderClient.lastLocation
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                101
-            )
-            return
-        }
-        task.addOnSuccessListener {
-            if (it!=null){
-                getAddress(it.latitude,it.longitude)
-                Toast.makeText(requireContext(),"${it.latitude}, ${it.longitude}",Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun getAddress(latitude : Double, longitude : Double){
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        val addresses: MutableList<Address>? =
-            geocoder.getFromLocation(latitude, longitude, 1)
-        address = addresses?.get(0)?.getAddressLine(0).toString()
-        city = addresses?.get(0)?.locality.toString()
-        lat = latitude
-        long = longitude
-
-        editTextNamaJalan.setText(address)
-        editTextLokasi.setText("[${lat},${long}]")
     }
 
     private fun actionFailed() {
@@ -177,7 +134,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             val lat = data.getDoubleExtra("LAT", 0.0)
             val long = data.getDoubleExtra("LONG", 0.0)
             editTextNamaJalan.setText(data.getStringExtra("ADDRESS"))
-            editTextLokasi.setText("[$lat,$long]")
+            editTextLokasi.setText(StringBuilder("[$lat,$long]"))
         } else if (requestCode == 1 && data != null) {
             imageUri = data.data
             editGambar.setImageURI(imageUri)
@@ -199,23 +156,23 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
         dialog.show()
 
         view.titik_tersumbat.setOnClickListener {
-            jenis = "Titik Tersumbat"
+            jenis = getString(R.string.titik_tersumbat)
             Toast.makeText(
                 activity,
                 "Anda melaporkan $jenis", Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
-            tv_laporkan.text = "Laporkan $jenis"
+            tv_laporkan.text = StringBuilder("Laporkan $jenis")
         }
 
         view.titik_banjir.setOnClickListener {
-            jenis = "Titik Banjir"
+            jenis = getString(R.string.titik_banjir)
             Toast.makeText(
                 activity,
                 "Anda melaporkan $jenis", Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
-            tv_laporkan.text = "Laporkan $jenis"
+            tv_laporkan.text = StringBuilder("Laporkan $jenis")
         }
 
         dialog.setOnDismissListener {
@@ -259,13 +216,10 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 intent.putExtra("type", "login")
                 startActivity(intent)
             }
-
             override fun onFailure(call: Call<DataPengaduanMasyarakat>, t: Throwable) {
                 requireView().snackbar("gagal ${t.message}")
             }
-
         })
-
     }
 
     private fun uploadImageAnonym() {
@@ -299,7 +253,6 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             override fun onFailure(call: Call<DataPengaduanMasyarakat>, t: Throwable) {
                 requireView().snackbar("gagal ${t.message}")
             }
-
         })
     }
 }

@@ -12,34 +12,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/shapeableImageView"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/header"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <com.google.android.material.imageview.ShapeableImageView-->
+<!--            android:id="@+id/shapeableImageView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:background="@color/header"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <EditText
-            android:id="@+id/cariDaerah"
-            style="@style/Widget.AppCompat.AutoCompleteTextView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/shape_very_rounded_white"
-            android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="15dp"
-            android:drawableTint="@color/primaryVariant"
-            android:hint="Cari Disini"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:textColor="@color/textColorSecondary"
-            android:textColorHint="@color/textColorSecondary"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent=".07"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent=".92" />
+<!--        <EditText-->
+<!--            android:id="@+id/cariDaerah"-->
+<!--            style="@style/Widget.AppCompat.AutoCompleteTextView"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:background="@drawable/shape_very_rounded_white"-->
+<!--            android:drawableStart="@drawable/ic_search"-->
+<!--            android:drawablePadding="15dp"-->
+<!--            android:drawableTint="@color/primaryVariant"-->
+<!--            android:hint="Cari Disini"-->
+<!--            android:inputType="textEmailAddress"-->
+<!--            android:padding="10dp"-->
+<!--            android:textColor="@color/textColorSecondary"-->
+<!--            android:textColorHint="@color/textColorSecondary"-->
+<!--            android:textSize="14sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHeight_percent=".07"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintWidth_percent=".92" />-->
 
 
         <com.google.android.gms.maps.MapView
@@ -49,7 +49,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
