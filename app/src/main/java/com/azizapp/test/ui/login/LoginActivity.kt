@@ -8,10 +8,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.azizapp.test.MainActivityNav
 import com.azizapp.test.R
 import com.azizapp.test.databinding.ActivityLoginBinding
 import com.azizapp.test.ui.daftar.DaftarActivity
+import com.azizapp.test.ui.navigationbar.MainActivityNav
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
@@ -70,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginSuccess() {
-        startActivity(Intent(this,MainActivityNav::class.java))
+        startActivity(Intent(this, MainActivityNav::class.java))
+        //SaveSharedPreference.setEmail(this, tvEmail.text.toString())
     }
 }

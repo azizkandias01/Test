@@ -5,7 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.createDataStore
+import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -15,13 +15,14 @@ import kotlinx.coroutines.runBlocking
 object Session {
 
     private const val TOKEN_BEARER_KEY = "token"
-    private const val NAMA_JALAN = "jalan"
 
+    // At the top level of your kotlin file:
 
-    private var dataStore: DataStore<Preferences>? = null
+    val Context.dataStore: DataStore<Preferences> by preferencesDataStore("session")
+    var dataStore: DataStore<Preferences>? = null
 
     fun init(context: Context) {
-        dataStore = context.createDataStore(name = "session")
+        dataStore = context.dataStore
     }
 
     fun unset() {
@@ -49,20 +50,4 @@ object Session {
             }
         }
 
-    var namaJalan: String?
-        get() =
-            runBlocking {
-                val dataStoreKey = stringPreferencesKey(NAMA_JALAN)
-                val preferences = dataStore?.data?.first()
-
-                preferences?.get(dataStoreKey)
-            }
-        set(value) {
-            GlobalScope.launch {
-                val da = stringPreferencesKey(NAMA_JALAN)
-                dataStore?.edit { session ->
-                    session[da] = value ?: ""
-                }
-            }
-        }
 }

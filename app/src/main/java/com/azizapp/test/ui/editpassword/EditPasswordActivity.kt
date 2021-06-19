@@ -37,15 +37,15 @@ class EditPasswordActivity : AppCompatActivity() {
     }
 
     private fun editFailed() {
-        Snackbar.make(binding.root,"Edit Failed", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, "Edit Failed", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun editError() {
-        Snackbar.make(binding.root,"Edit Error",Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, "Edit Error", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun editSuccess() {
-        Snackbar.make(binding.root,"Edit Success",Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, "Edit Success", Snackbar.LENGTH_SHORT).show()
         finish()
     }
 }

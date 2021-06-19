@@ -29,36 +29,46 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
 
+
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModeEditProfile = editProfileViewModel
         }
+
+        with(binding){
+            editProfileViewModel.loadingEnable.observe(viewLifecycleOwner,{
+                pbLoginInfo.visibility = if (it) View.VISIBLE else View.GONE
+
+            })
+
+
+            ubahProfil.setOnClickListener {
+                val intent = Intent(activity, ActivityEditProfile::class.java)
+                startActivity(intent)
+            }
+
+            ubahPassword.setOnClickListener {
+                val intent = Intent(activity, EditPasswordActivity::class.java)
+                startActivity(intent)
+            }
+            keluar.setOnClickListener {
+                Session.unset()
+                val intent = Intent(activity, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                requireActivity().finish()
+            }
+
+            tentangKami.setOnClickListener {
+                val intent = Intent(activity, ActivityTentangKami::class.java)
+                startActivity(intent)
+            }
+        }
+
+
+
         editProfileViewModel.onLoad()
         // Inflate the layout for this fragment
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.ubahProfil.setOnClickListener {
-            val intent = Intent(activity, ActivityEditProfile::class.java)
-            startActivity(intent)
-        }
-
-        binding.ubahPassword.setOnClickListener {
-            val intent = Intent(activity, EditPasswordActivity::class.java)
-            startActivity(intent)
-        }
-        binding.keluar.setOnClickListener{
-            Session.bearer = ""
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.tentangKami.setOnClickListener {
-            val intent = Intent(activity, ActivityTentangKami::class.java)
-            startActivity(intent)
-        }
     }
 }

@@ -5,11 +5,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 
     <application
         android:name=".BaseApplication"
@@ -20,26 +19,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Test"
         android:usesCleartextTraffic="true">
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
 
-        <activity android:name=".MainActivityNav" />
+        <activity android:name=".ui.navigationbar.MainActivityNav" />
         <activity android:name=".ui.daftar.DaftarActivity" />
         <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.welcome.MainActivity" />
         <activity android:name=".ui.laporan.LaporanActivity" />
-        <activity android:name=".ui.laporan.MapActivity" />
         <activity android:name=".ui.laporan.SuccessPage" />
-        <activity android:name=".MainActivityNavGuest" />
+        <activity android:name=".ui.navigationbar.MainActivityNavGuest" />
         <activity android:name=".ui.editpassword.EditPasswordActivity" />
         <activity android:name=".ui.riwayat.DetilRiwayat" />
         <activity android:name=".ui.tentang_kami.ActivityTentangKami"
             android:theme="@style/Windowactionbar"
             android:label="Tentang DRAINIT"/>
-        <activity android:name=".SplashScreen">
+        <activity android:name=".ui.splashscreen.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

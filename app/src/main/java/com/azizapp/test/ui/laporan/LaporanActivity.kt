@@ -38,8 +38,8 @@ import java.util.*
 
 class LaporanActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    var address = "";
-    var city = "";
+    var address = ""
+    var city = ""
     var lat: Double = 0.0
     var long: Double = 0.0
 
@@ -213,6 +213,7 @@ class LaporanActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>,
                                             grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         locationPermissionGranted = false
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {

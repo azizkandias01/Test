@@ -178,19 +178,24 @@
                         app:layout_constraintTop_toBottomOf="@+id/email"
                         app:layout_constraintWidth_percent=".85" />
 
+                    <ProgressBar
+                        android:id="@+id/pb_login_loading"
+                        android:layout_width="@dimen/dimen8x"
+                        android:layout_height="@dimen/dimen8x"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:visibility="@{viewModeEditProfile.loadingEnable ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="visible" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <ProgressBar
-            android:id="@+id/pb_login_loading"
-            android:layout_width="@dimen/dimen8x"
-            android:layout_height="@dimen/dimen8x"
-            android:layout_below="@id/et_login_password"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dimen2x"
-            android:visibility="@{viewModeEditProfile.loadingEnable ? View.VISIBLE : View.GONE}"
-            tools:visibility="gone" />
+
 
         <Button
             android:id="@+id/buttonEdit"

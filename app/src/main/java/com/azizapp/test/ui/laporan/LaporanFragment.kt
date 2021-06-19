@@ -27,7 +27,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.azizapp.test.R
-import com.azizapp.test.api.MyAPI
 import com.azizapp.test.databinding.FragmentLaporanBinding
 import com.azizapp.test.model.DataPengaduanMasyarakat
 import com.azizapp.test.utill.Session
@@ -45,17 +44,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
-import java.lang.StringBuilder
 import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LaporanFragment @Inject constructor(private val typeUser: String) : Fragment() {
 
-    var address = "";
-    var city = "";
+    var address = ""
+    var city = ""
     var lat: Double = 0.0
     var long: Double = 0.0
+//    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var binding: FragmentLaporanBinding
     private val laporanViewModel: LaporanViewModel by viewModels()
 
@@ -97,7 +96,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 startActivityForResult(it, 1)
             }
         }
-        binding.buttonLapor.setOnClickListener() {
+        binding.buttonLapor.setOnClickListener {
             when (typeUser) {
                 "login" -> uploadImage()
                 "anonim" -> uploadImageAnonym()
@@ -114,14 +113,6 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
                 pilihLaporan()
             }
             .show()
-    }
-
-    private fun actionFailed() {
-        Snackbar.make(binding.root, "Action Failed", Snackbar.LENGTH_SHORT).show()
-    }
-
-    private fun actionError() {
-        Snackbar.make(binding.root, "Action Error", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun actionSuccess() {
@@ -151,7 +142,7 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
     fun pilihLaporan(): String {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
         val dialog = BottomSheetDialog(requireActivity())
-        var jenis: String = ""
+        var jenis = ""
         dialog.setContentView(view)
         dialog.show()
 
@@ -184,42 +175,42 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
     }
 
     private fun uploadImage() {
+        val bearer = "Bearer " + Session.bearer
+
         if (imageUri == null) {
             this.view?.snackbar("Select an Image First")
             return
         }
 
-        val bearer = "Bearer " + Session.bearer
-
         val geometry = "{\"type\": \"Point\", \"coordinates\": ${editTextLokasi.text}}"
-        val masyarakat = DataPengaduanMasyarakat(
-            editTextNamaJalan.text.toString(),
-            sImage,
-            tv_laporkan.text.toString().substring(
-                15
-            ),
-            editTextDeskripsi.text.toString(),
-            "Belum diverifikasi",
-            geometry
-        )
-        MyAPI().pengaduanMasyarakat(
-            bearer,
-            "application/json",
-            masyarakat
+        val namaJalan = editTextNamaJalan.text.toString()
+        val image = sImage
+        val tipePengaduan = tv_laporkan.text.toString().substring(15)
+        val deskripsi = editTextDeskripsi.text.toString()
+        val statusPengaduan = "Belum diverifikasi"
 
-        ).enqueue(object : Callback<DataPengaduanMasyarakat> {
-            override fun onResponse(
-                call: Call<DataPengaduanMasyarakat>,
-                response: Response<DataPengaduanMasyarakat>
-            ) {
-                val intent = Intent(activity, SuccessPage::class.java)
-                intent.putExtra("type", "login")
-                startActivity(intent)
-            }
-            override fun onFailure(call: Call<DataPengaduanMasyarakat>, t: Throwable) {
-                requireView().snackbar("gagal ${t.message}")
+        laporanViewModel.uploadLaporan(bearer,namaJalan,image,deskripsi,tipePengaduan,geometry,statusPengaduan)
+        laporanViewModel.loadingEnable.observe(viewLifecycleOwner,{
+            if (it) {
+                binding.pbLoginLoading.visibility = View.VISIBLE
+                binding.buttonLapor.visibility = View.GONE
+            }else{
+                binding.pbLoginLoading.visibility = View.GONE
+                binding.buttonLapor.visibility = View.VISIBLE
             }
         })
+        laporanViewModel.action.observe(viewLifecycleOwner,{
+            when(it){
+                LaporanViewModel.ACTION_SUCCESS -> {
+                    val intent = Intent(activity, SuccessPage::class.java)
+                    intent.putExtra("type", "login")
+                    startActivity(intent)
+                }
+                LaporanViewModel.ACTION_ERROR -> actionError()
+                LaporanViewModel.ACTION_FAILED -> actionFailed()
+            }
+        })
+
     }
 
     private fun uploadImageAnonym() {
@@ -227,33 +218,43 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             this.view?.snackbar("Select an Image First")
             return
         }
+
         val geometry = "{\"type\": \"Point\", \"coordinates\": ${editTextLokasi.text}}"
-        val masyarakat = DataPengaduanMasyarakat(
-            editTextNamaJalan.text.toString(),
-            sImage,
-            tv_laporkan.text.toString().substring(15),
-            editTextDeskripsi.text.toString(),
-            "Belum diverifikasi",
-            geometry
-        )
-        MyAPI().pengaduanMasyarakatAnonim(
-            "application/json",
-            masyarakat
+        val namaJalan = editTextNamaJalan.text.toString()
+        val image = sImage
+        val tipePengaduan = tv_laporkan.text.toString().substring(15)
+        val deskripsi = editTextDeskripsi.text.toString()
+        val statusPengaduan = "Belum diverifikasi"
 
-        ).enqueue(object : Callback<DataPengaduanMasyarakat> {
-            override fun onResponse(
-                call: Call<DataPengaduanMasyarakat>,
-                response: Response<DataPengaduanMasyarakat>
-            ) {
-                val intent = Intent(activity, SuccessPage::class.java)
-                intent.putExtra("type", "anonim")
-                startActivity(intent)
-            }
-
-            override fun onFailure(call: Call<DataPengaduanMasyarakat>, t: Throwable) {
-                requireView().snackbar("gagal ${t.message}")
+        laporanViewModel.uploadLaporanAnonymous(namaJalan,image,deskripsi,tipePengaduan,geometry,statusPengaduan)
+        laporanViewModel.loadingEnable.observe(viewLifecycleOwner,{
+            if (it) {
+                binding.pbLoginLoading.visibility = View.GONE
+                binding.buttonLapor.visibility = View.VISIBLE
+            }else{
+                binding.pbLoginLoading.visibility = View.VISIBLE
+                binding.buttonLapor.visibility = View.GONE
             }
         })
+        laporanViewModel.action.observe(viewLifecycleOwner,{
+            when(it){
+                LaporanViewModel.ACTION_SUCCESS -> {
+                    val intent = Intent(activity, SuccessPage::class.java)
+                    intent.putExtra("type", "anonim")
+                    startActivity(intent)
+                }
+                LaporanViewModel.ACTION_ERROR -> actionError()
+                LaporanViewModel.ACTION_FAILED -> actionFailed()
+            }
+        })
+    }
+
+    private fun actionFailed() {
+        this.view?.snackbar("Upload Failed")
+    }
+
+    private fun actionError() {
+        this.view?.snackbar("Upload Error")
     }
 }
 

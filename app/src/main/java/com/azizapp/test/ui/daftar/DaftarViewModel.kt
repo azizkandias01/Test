@@ -1,16 +1,18 @@
 package com.azizapp.test.ui.daftar
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.azizapp.test.model.MasyarakatDaftar
 import com.azizapp.test.repository.MainRepository
 import com.azizapp.test.utill.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DaftarViewModel @ViewModelInject constructor(
-    public val repository: MainRepository
+@HiltViewModel
+class DaftarViewModel @Inject constructor(
+    private val repository: MainRepository
 ) : ViewModel() {
 
     companion object {
@@ -56,7 +58,7 @@ class DaftarViewModel @ViewModelInject constructor(
                         action.postValue(ACTION_DAFTAR_ERROR)
                     }
                 }
-            }else{
+            } else {
                 loadingEnable.postValue(false)
                 action.postValue(ACTION_DAFTAR_ERROR)
             }

@@ -1,6 +1,5 @@
 package com.azizapp.test.ui.profile
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,10 +7,13 @@ import com.azizapp.test.model.EditMasyarakatRequest
 import com.azizapp.test.repository.MainRepository
 import com.azizapp.test.ui.editpassword.EditPasswordViewModel
 import com.azizapp.test.utill.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EditProfileViewModel @ViewModelInject constructor(
-    public val repository: MainRepository
+@HiltViewModel
+class EditProfileViewModel @Inject constructor(
+    private val repository: MainRepository
 ) : ViewModel() {
 
     companion object {
@@ -30,6 +32,7 @@ class EditProfileViewModel @ViewModelInject constructor(
     val bearer: String = "Bearer " + com.azizapp.test.utill.Session.bearer
 
     fun onLoad() {
+        loadingEnable.value = true
         viewModelScope.launch {
             when (val response = bearer.let { repository.getMasyarakatData(it) }) {
                 is Resource.Success -> {
@@ -37,6 +40,7 @@ class EditProfileViewModel @ViewModelInject constructor(
                     noHp.postValue(response.data?.noHp)
                     emailUser.postValue(response.data?.email)
                     alamat.postValue(response.data?.alamat)
+                    loadingEnable.postValue(false)
                 }
                 is Resource.Error -> {
                     loadingEnable.postValue(false)
@@ -44,7 +48,8 @@ class EditProfileViewModel @ViewModelInject constructor(
             }
         }
     }
-    fun saveChanges(){
+
+    fun saveChanges() {
         viewModelScope.launch {
             val editMasyarakatRequest = EditMasyarakatRequest(
                 nama = nama.value,

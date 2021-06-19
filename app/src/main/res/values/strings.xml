@@ -40,6 +40,7 @@
     <string name="nama_jalan">Nama Jalan</string>
     <string name="koordinat">Koordinat</string>
     <string name="deskripsi">Deskripsi</string>
+    <string name="daftar_titik_banjir_dan_tersumbat">Daftar Titik Banjir dan Tersumbat</string>
     <string name="pilih_jenis_laporan">Pilih Jenis Laporan</string>
     <string name="dialog_content">Silahkan pilih jenis laporan terlebih dahulu</string>
     <string name="ok">OK</string>
@@ -48,4 +49,6 @@
     <string name="pick_place">Pilih lokasi</string>
     <string name="titik_tersumbat">Titik Tersumbat</string>
     <string name="titik_banjir">Titik Banjir</string>
+    <string name="lapor">Lapor</string>
+    <string name="load_image_failed">load image failed</string>
 </resources>

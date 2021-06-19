@@ -16,10 +16,12 @@ class RiwayatRecyclerAdapter(
         parent: ViewGroup,
         viewType: Int
     ): RiwayatViewHolder {
-        return RiwayatViewHolder(ItemListRiwayatBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false)
+        return RiwayatViewHolder(
+            ItemListRiwayatBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
     }
 
