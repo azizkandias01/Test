@@ -17,6 +17,8 @@ import com.azizapp.test.ui.profile.ProfileFragment;
 import com.azizapp.test.ui.riwayat.RiwayatFragment;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
+import org.jetbrains.annotations.NotNull;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -69,7 +71,7 @@ public class MainActivityNav extends AppCompatActivity {
         });
     }
 
-    private void replace_fragment(Fragment fragment) {
+    private void replace_fragment(@NotNull Fragment fragment) {
 
         String tag = fragment.getClass().getSimpleName();
         FragmentTransaction tr = getSupportFragmentManager().beginTransaction();

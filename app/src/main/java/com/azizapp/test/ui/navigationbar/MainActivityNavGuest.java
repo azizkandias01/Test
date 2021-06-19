@@ -43,34 +43,27 @@ public class MainActivityNavGuest extends AppCompatActivity {
                     .commit();
         }
 
-        mMainNav.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(int id) {
-                Fragment fragment = null;
-                switch (id) {
-                    case R.id.nav_new_guest:
-                        fragment = new LaporanFragment("anonim");
-                        break;
-                    case R.id.nav_home_guest:
-                        fragment = new HomeFragment();
-                        break;
-                }
+        mMainNav.setOnItemSelectedListener(id -> {
+            Fragment fragment = null;
+            switch (id) {
+                case R.id.nav_new_guest:
+                    fragment = new LaporanFragment("anonim");
+                    break;
+                case R.id.nav_home_guest:
+                    fragment = new HomeFragment();
+                    break;
+            }
 
-                if (fragment != null) {
-                    fragmentManager = getSupportFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.main_frame_guest, fragment)
-                            .commit();
-                } else {
-                    Log.e(TAG, "Error in creating fragment");
-                }
+            if (fragment != null) {
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_frame_guest, fragment)
+                        .commit();
+            } else {
+                Log.e(TAG, "Error in creating fragment");
             }
         });
     }
 
-    private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame_guest, fragment);
-        fragmentTransaction.commit();
-    }
+
 }

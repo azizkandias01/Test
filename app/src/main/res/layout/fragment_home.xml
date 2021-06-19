@@ -35,5 +35,5 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <include layout="@layout/layout_persistent_bottom_sheet" />
+    <include layout="@layout/layout_persistent_bottom_sheet"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

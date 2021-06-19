@@ -31,7 +31,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var i : View
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
     private var markerList: ArrayList<Marker>? = null
-    var markerListTersumbat: ArrayList<Marker>? = null
+    private var markerListTersumbat: ArrayList<Marker>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
