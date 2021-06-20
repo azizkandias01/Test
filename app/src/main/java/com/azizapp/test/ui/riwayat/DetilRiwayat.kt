@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.bottom_sheet_detail.*
 class DetilRiwayat : AppCompatActivity() {
 
     lateinit var binding: ActivityDetilRiwayatBinding
-    private val detilRiwayatViewModel: DetilRiwayatViewModel by viewModels()
 
     companion object {
         const val DETAIL_EXTRA_PARCEL = "DETAIL_EXTRA_PARCEL"
@@ -35,11 +34,9 @@ class DetilRiwayat : AppCompatActivity() {
             data = item
         }
 
-        //val ibBack: ImageButton = findViewById(R.id.ib_back)
-
-//        ibBack.setOnClickListener{
-//            finish()
-//        }
+        binding.ivBack.setOnClickListener{
+            onBackPressed()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

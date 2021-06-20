@@ -6,9 +6,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:name=".BaseApplication"
@@ -29,9 +29,10 @@
         <activity android:name=".ui.navigationbar.MainActivityNavGuest" />
         <activity android:name=".ui.editpassword.EditPasswordActivity" />
         <activity android:name=".ui.riwayat.DetilRiwayat" />
-        <activity android:name=".ui.tentang_kami.ActivityTentangKami"
-            android:theme="@style/Windowactionbar"
-            android:label="Tentang DRAINIT"/>
+        <activity
+            android:name=".ui.tentang_kami.ActivityTentangKami"
+            android:label="Tentang DRAINIT"
+            android:theme="@style/Windowactionbar" />
         <activity android:name=".ui.splashscreen.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

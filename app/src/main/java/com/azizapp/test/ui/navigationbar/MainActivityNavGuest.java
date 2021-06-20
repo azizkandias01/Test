@@ -7,13 +7,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.azizapp.test.R;
 import com.azizapp.test.ui.laporan.LaporanFragment;
 import com.azizapp.test.ui.map.HomeFragment;
-import com.azizapp.test.ui.profile.ProfileFragment;
-import com.azizapp.test.ui.riwayat.RiwayatFragment;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import dagger.hilt.android.AndroidEntryPoint;

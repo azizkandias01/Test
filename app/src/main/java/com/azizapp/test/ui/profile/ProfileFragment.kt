@@ -39,8 +39,8 @@ class ProfileFragment : Fragment() {
             viewModeEditProfile = editProfileViewModel
         }
 
-        with(binding){
-            editProfileViewModel.loadingEnable.observe(viewLifecycleOwner,{
+        with(binding) {
+            editProfileViewModel.loadingEnable.observe(viewLifecycleOwner, {
                 pbLoginInfo.visibility = if (it) View.VISIBLE else View.GONE
             })
 

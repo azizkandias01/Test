@@ -22,7 +22,7 @@ class SplashScreen : Activity() {
                 startActivity(Intent)
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 finish()
-            }else{
+            } else {
                 val Intent = Intent(this, MainActivity::class.java)
                 startActivity(Intent)
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)

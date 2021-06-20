@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.azizapp.test.R
 import com.azizapp.test.databinding.GantiPasswordLayoutBinding
 import com.google.android.material.snackbar.Snackbar

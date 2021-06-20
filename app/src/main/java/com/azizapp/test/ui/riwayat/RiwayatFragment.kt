@@ -1,79 +1,65 @@
 package com.azizapp.test.ui.riwayat
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.azizapp.test.R
 import com.azizapp.test.databinding.FragmentRiwayatBinding
+import com.azizapp.test.model.Pengaduan
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_riwayat.*
 import kotlinx.android.synthetic.main.item_list_riwayat.view.*
+import kotlinx.android.synthetic.main.splashscreen.*
 
 
 @AndroidEntryPoint
 class RiwayatFragment : Fragment() {
 
     private val riwayatViewModel: RiwayatViewModel by viewModels()
-    private lateinit var riwayatAdapter: RiwayatRecyclerAdapter
+    private lateinit var recyclerAdapter: RiwayatAdapter
     private lateinit var dataBinding: FragmentRiwayatBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        riwayatAdapter = RiwayatRecyclerAdapter(riwayatViewModel)
-        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_riwayat, container, false)
+        dataBinding = FragmentRiwayatBinding.inflate(inflater, container, false)
         return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupRecyclerView()
-        dataBinding.apply {
-            lifecycleOwner = this@RiwayatFragment
-            viewModelRiwayat = riwayatViewModel
-        }
-
-        riwayatViewModel.action.observe(viewLifecycleOwner, { action ->
-            when (action) {
-                RiwayatViewModel.ACTION_RIWAYAT_FETCHED -> listItemUpdate()
-                RiwayatViewModel.ACTION_RIWAYAT_ONCLICK -> listItemOnClick()
-            }
-        })
 
         riwayatViewModel.onLoad()
-    }
-
-    private fun listItemOnClick() {
-        val itemClicked =
-            riwayatViewModel.listPengaduan[riwayatViewModel.actionItemPosition.value ?: 0]
-
-        val intent = Intent(requireContext(), DetilRiwayat::class.java)
-        intent.putExtra(DetilRiwayat.DETAIL_EXTRA_PARCEL, itemClicked)
-
-        startActivity(intent)
+        setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
-        dataBinding.recyclerView.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = this@RiwayatFragment.riwayatAdapter
-        }
-    }
-
-    private fun listItemUpdate() {
-        riwayatAdapter.items = riwayatViewModel.listPengaduan
-        riwayatAdapter.notifyDataSetChanged()
-
-        riwayatViewModel.loadingEnable.observe(viewLifecycleOwner,{
+        recyclerAdapter = RiwayatAdapter()
+        riwayatViewModel.pengaduan.observe(viewLifecycleOwner, { data ->
+            dataBinding.chipGroupFilter.setOnCheckedChangeListener { group, checkedId ->
+                val chip: Chip? = group.findViewById(checkedId)
+                chip?.let { chipView ->
+                    val filter = data.filter {
+                        it.statusPengaduan == chipView.text
+                    }
+                    if (chipView.text == "Semua Laporan") recyclerAdapter.setData(data) else recyclerAdapter.setData(
+                        filter as ArrayList<Pengaduan>
+                    )
+                }
+            }
+            recyclerAdapter.setData(data)
+            dataBinding.recyclerView.apply {
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                adapter = this@RiwayatFragment.recyclerAdapter
+            }
+        })
+        riwayatViewModel.loadingEnable.observe(viewLifecycleOwner, {
             dataBinding.pbLoadRiwayat.visibility = if (it) View.VISIBLE else View.GONE
         })
-
     }
 }

@@ -1,6 +1,5 @@
 package com.azizapp.test.ui.laporan
 
-import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
@@ -17,7 +16,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.azizapp.test.R
 import com.azizapp.test.databinding.FragmentLaporanBinding
 import com.azizapp.test.utill.Session
@@ -37,7 +35,8 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
     var city = ""
     var lat: Double = 0.0
     var long: Double = 0.0
-//    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    //    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var binding: FragmentLaporanBinding
     private val laporanViewModel: LaporanViewModel by viewModels()
 
@@ -113,12 +112,13 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
             imageUri = data.data
             binding.editGambar.setImageURI(imageUri)
             binding.tvPilihDariGaleri.visibility = View.GONE
-           binding.imageView2.visibility = View.GONE
-           binding.editGambar.visibility = View.VISIBLE
-            val bitmap: Bitmap? = if (Build.VERSION.SDK_INT < 28){
+            binding.imageView2.visibility = View.GONE
+            binding.editGambar.visibility = View.VISIBLE
+            val bitmap: Bitmap? = if (Build.VERSION.SDK_INT < 28) {
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
-            }else{
-                val source = ImageDecoder.createSource(requireActivity().contentResolver, imageUri!!)
+            } else {
+                val source =
+                    ImageDecoder.createSource(requireActivity().contentResolver, imageUri!!)
                 ImageDecoder.decodeBitmap(source)
             }
 
@@ -180,18 +180,26 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
         val deskripsi = editTextDeskripsi.text.toString()
         val statusPengaduan = "Belum diverifikasi"
 
-        laporanViewModel.uploadLaporan(bearer,namaJalan,image,deskripsi,tipePengaduan,geometry,statusPengaduan)
-        laporanViewModel.loadingEnable.observe(viewLifecycleOwner,{
+        laporanViewModel.uploadLaporan(
+            bearer,
+            namaJalan,
+            image,
+            deskripsi,
+            tipePengaduan,
+            geometry,
+            statusPengaduan
+        )
+        laporanViewModel.loadingEnable.observe(viewLifecycleOwner, {
             if (it) {
                 binding.pbLoginLoading.visibility = View.VISIBLE
                 binding.buttonLapor.visibility = View.GONE
-            }else{
+            } else {
                 binding.pbLoginLoading.visibility = View.GONE
                 binding.buttonLapor.visibility = View.VISIBLE
             }
         })
-        laporanViewModel.action.observe(viewLifecycleOwner,{
-            when(it){
+        laporanViewModel.action.observe(viewLifecycleOwner, {
+            when (it) {
                 LaporanViewModel.ACTION_SUCCESS -> {
                     val intent = Intent(activity, SuccessPage::class.java)
                     intent.putExtra("type", "login")
@@ -217,18 +225,25 @@ class LaporanFragment @Inject constructor(private val typeUser: String) : Fragme
         val deskripsi = editTextDeskripsi.text.toString()
         val statusPengaduan = "Belum diverifikasi"
 
-        laporanViewModel.uploadLaporanAnonymous(namaJalan,image,deskripsi,tipePengaduan,geometry,statusPengaduan)
-        laporanViewModel.loadingEnable.observe(viewLifecycleOwner,{
+        laporanViewModel.uploadLaporanAnonymous(
+            namaJalan,
+            image,
+            deskripsi,
+            tipePengaduan,
+            geometry,
+            statusPengaduan
+        )
+        laporanViewModel.loadingEnable.observe(viewLifecycleOwner, {
             if (it) {
                 binding.pbLoginLoading.visibility = View.GONE
                 binding.buttonLapor.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.pbLoginLoading.visibility = View.VISIBLE
                 binding.buttonLapor.visibility = View.GONE
             }
         })
-        laporanViewModel.action.observe(viewLifecycleOwner,{
-            when(it){
+        laporanViewModel.action.observe(viewLifecycleOwner, {
+            when (it) {
                 LaporanViewModel.ACTION_SUCCESS -> {
                     val intent = Intent(activity, SuccessPage::class.java)
                     intent.putExtra("type", "anonim")

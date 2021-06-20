@@ -88,8 +88,10 @@ class LaporanActivity : AppCompatActivity(), OnMapReadyCallback {
 
             override fun getInfoContents(marker: Marker): View {
                 // Inflate the layouts for the info window, title and snippet.
-                val infoWindow = layoutInflater.inflate(R.layout.custom_info_contents,
-                    findViewById<FrameLayout>(R.id.map), false)
+                val infoWindow = layoutInflater.inflate(
+                    R.layout.custom_info_contents,
+                    findViewById<FrameLayout>(R.id.map), false
+                )
                 val title = infoWindow.findViewById<TextView>(R.id.title)
                 title.text = marker.title
                 val snippet = infoWindow.findViewById<TextView>(R.id.snippet)
@@ -169,15 +171,22 @@ class LaporanActivity : AppCompatActivity(), OnMapReadyCallback {
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
-                            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                LatLng(lastKnownLocation!!.latitude,
-                                    lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
+                            mMap?.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    LatLng(
+                                        lastKnownLocation!!.latitude,
+                                        lastKnownLocation!!.longitude
+                                    ), DEFAULT_ZOOM.toFloat()
+                                )
+                            )
                         }
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.")
                         Log.e(TAG, "Exception: %s", task.exception)
-                        mMap?.moveCamera(CameraUpdateFactory
-                            .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))
+                        mMap?.moveCamera(
+                            CameraUpdateFactory
+                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+                        )
                         mMap?.uiSettings?.isMyLocationButtonEnabled = false
                     }
                 }
@@ -193,26 +202,34 @@ class LaporanActivity : AppCompatActivity(), OnMapReadyCallback {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(this.applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             locationPermissionGranted = true
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>,
-                                            grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         locationPermissionGranted = false
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
                     locationPermissionGranted = true
                 }
             }

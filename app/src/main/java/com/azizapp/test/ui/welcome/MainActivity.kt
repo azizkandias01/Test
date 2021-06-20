@@ -27,11 +27,11 @@ class MainActivity : AppCompatActivity() {
     private var descList = mutableListOf<String>()
     private var imagesList = mutableListOf<Int>()
     private var fusedLocationProvider: FusedLocationProviderClient? = null
-    private val locationRequest: LocationRequest =  LocationRequest.create().apply {
+    private val locationRequest: LocationRequest = LocationRequest.create().apply {
         interval = 30
         fastestInterval = 10
         priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-        maxWaitTime= 60
+        maxWaitTime = 60
     }
 
     private var locationCallback: LocationCallback = object : LocationCallback() {
@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(
                     this@MainActivity,
                     "Got Location: $location",
-                    Toast.LENGTH_LONG)
+                    Toast.LENGTH_LONG
+                )
                     .show()
             }
         }
@@ -56,8 +57,8 @@ class MainActivity : AppCompatActivity() {
     private var image = intArrayOf(R.raw.smartphone, R.raw.laborer)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (Session.bearer != null){
-            startActivity(Intent(this,MainActivityNav::class.java))
+        if (Session.bearer != null) {
+            startActivity(Intent(this, MainActivityNav::class.java))
         }
 
         super.onCreate(savedInstanceState)
@@ -104,7 +105,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
+            == PackageManager.PERMISSION_GRANTED
+        ) {
 
             fusedLocationProvider?.requestLocationUpdates(
                 locationRequest,
@@ -116,9 +118,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
 
             fusedLocationProvider?.removeLocationUpdates(locationCallback)
         }

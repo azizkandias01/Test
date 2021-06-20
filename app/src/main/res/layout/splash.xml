@@ -37,9 +37,9 @@
             android:layout_height="64dp"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/poppins_bold"
-            android:textColor="@color/textPrimary"
             android:text="Buat Akun"
             android:textAllCaps="true"
+            android:textColor="@color/textPrimary"
             android:textSize="18sp" />
 
         <RelativeLayout

@@ -18,12 +18,11 @@ class RiwayatViewModel @Inject constructor(
     val loadingEnable = MutableLiveData<Boolean>()
     val listPengaduan: ArrayList<Pengaduan> = arrayListOf()
     val action = MutableLiveData<String>()
-    val actionItemPosition = MutableLiveData<Int>()
+    val pengaduan = MutableLiveData<ArrayList<Pengaduan>>()
 
     companion object {
         const val ACTION_RIWAYAT_FETCHED = "RIWAYAT_FETCHED"
         const val ACTION_RIWAYAT_ERROR = "RIWAYAT_ERROR"
-        const val ACTION_RIWAYAT_ONCLICK = "RIWAYAT_CLICKED"
     }
 
     fun onLoad() {
@@ -35,6 +34,7 @@ class RiwayatViewModel @Inject constructor(
                     response.data?.forEach {
                         listPengaduan.add(it)
                     }
+                    pengaduan.postValue(listPengaduan)
                     action.postValue(ACTION_RIWAYAT_FETCHED)
                     loadingEnable.postValue(false)
                 }
@@ -47,8 +47,4 @@ class RiwayatViewModel @Inject constructor(
         }
     }
 
-    fun itemOnClick(position: Int) {
-        actionItemPosition.value = position
-        action.value = ACTION_RIWAYAT_ONCLICK
-    }
 }

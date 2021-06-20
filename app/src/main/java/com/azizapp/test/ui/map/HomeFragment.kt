@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    private lateinit var i : View
+    private lateinit var i: View
     private val HomeViewModel: HomeFragmentViewModel by viewModels()
     private var markerList: ArrayList<Marker>? = null
     var markerListTersumbat: ArrayList<Marker>? = null
@@ -40,7 +40,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         mapView2.getMapAsync(this)
         HomeViewModel.onLoad()
-       HomeViewModel.titikTersumbat()
+        HomeViewModel.titikTersumbat()
     }
 
     override fun onCreateView(
@@ -90,13 +90,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         googleMap.setOnMarkerClickListener { marker ->
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
             i.tvTitle.text = marker.title
-            val keteranganFoto : List<String> = marker.snippet!!.split("|")
+            val keteranganFoto: List<String> = marker.snippet!!.split("|")
             i.tvSubtitle.text = StringBuilder("Keterangan Drainase: ${keteranganFoto[0]}")
             i.gambar.loadImgFromUrl(keteranganFoto[1])
             true
         }
-        HomeViewModel.loadingEnable.observe(viewLifecycleOwner,{
-            i.pb_load_titik.visibility = if(it) View.VISIBLE else View.GONE
+        HomeViewModel.loadingEnable.observe(viewLifecycleOwner, {
+            i.pb_load_titik.visibility = if (it) View.VISIBLE else View.GONE
         })
     }
 

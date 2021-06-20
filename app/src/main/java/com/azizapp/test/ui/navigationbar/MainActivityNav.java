@@ -1,8 +1,6 @@
 package com.azizapp.test.ui.navigationbar;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
